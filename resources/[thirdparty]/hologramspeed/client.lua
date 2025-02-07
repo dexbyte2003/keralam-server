@@ -19,7 +19,7 @@ local usingMetric, shouldUseMetric = ShouldUseMetricMeasurements() -- Used to tr
 local textureReplacementMade       = false -- Due to some weirdness with the experimental replace texture native, we need to make the replacement after the anchor has been spawned in-game
 
 -- Preferences
-local displayEnabled = false
+local displayEnabled = true
 local currentTheme   = GetConvar("hsp_defaultTheme", "default")
 
 function DebugPrint(...)
