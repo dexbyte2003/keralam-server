@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attractive HUD</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="hud">
+        <div id="info-section">
+            <div id="player-info">
+                <p>ID: <span id="player-id">N/A</span></p>
+                <p>Name: <span id="player-name">N/A</span></p>
+                <p>Job: <span id="player-job">N/A</span></p>
+                <p>Role: <span id="job-role">N/A</span></p>
+            </div>
+            <div id="money-info">
+                <p>Cash: $<span id="money-hand">0</span></p>
+                <p>Bank: $<span id="money-bank">0</span></p>
+            </div>
+        </div>
+
+        <div id="status-section">
+            <div class="health-bar"><div class="bar-fill" id="health-fill"></div></div>
+            <div class="armor-bar"><div class="bar-fill" id="armor-fill"></div></div>
+        </div>
+
+        <div id="speedometer">
+            <p>Speed: <span id="speed">0</span> km/h</p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

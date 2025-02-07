@@ -1,0 +1,6 @@
+--2025-02-02 11:21:45--  https://content-scw.cfx.re/assets/1432744/74e13df5c7a7ab91a09886a96f9073fb?response-content-disposition=attachment%3B%20filename%20%3D%22RxReports.pack.zip%22
+Resolving content-scw.cfx.re (content-scw.cfx.re)... 104.18.8.193, 104.18.9.193, 2606:4700::6812:8c1, ...
+Connecting to content-scw.cfx.re (content-scw.cfx.re)|104.18.8.193|:443... connected.
+HTTP request sent, awaiting response... 403 Forbidden
+2025-02-02 11:21:46 ERROR 403: Forbidden.
+
