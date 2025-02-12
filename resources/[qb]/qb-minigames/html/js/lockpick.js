@@ -9,7 +9,7 @@ const minRot = -90,
     maxDistFromSolve = 45,
     mouseSmoothing = 2,
     keyRepeatRate = 25,
-    cylRotSpeed = 3,
+    cylRotSpeed = 1,
     pinDamage = 20,
     pinDamageInterval = 150;
 
