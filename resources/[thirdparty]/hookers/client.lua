@@ -582,6 +582,50 @@ function HookerInteractionCanceled()
 end
 
 
+-- Blip Management Thread
+CreateThread(function()
+    local hookerBlips = {}
+
+    while true do
+        local peds = GetNearbyPeds()
+        local currentBlips = {}
+
+        -- Check each ped for eligibility
+        for _, ped in ipairs(peds) do
+            local pedModel = GetEntityModel(ped)
+            if Config.HookerPedModels[pedModel] and not IsPedAPlayer(ped) and not IsPedDeadOrDying(ped, true) then
+                local pedHandle = ped
+
+                -- Create blip if it doesn't exist
+                if not hookerBlips[pedHandle] then
+                    local blip = AddBlipForEntity(pedHandle)
+                    SetBlipSprite(blip, 184) -- Use female icon sprite
+                    SetBlipColour(blip, 8)    -- Pink color
+                    SetBlipScale(blip, 0.8)
+                    SetBlipCategory(blip, 3)   -- NPC category
+                    BeginTextCommandSetBlipName("STRING")
+                    AddTextComponentString("Hooker")
+                    EndTextCommandSetBlipName(blip)
+                    hookerBlips[pedHandle] = blip
+                end
+
+                currentBlips[pedHandle] = true
+            end
+        end
+
+        -- Remove old blips that no longer exist
+        for pedHandle, blip in pairs(hookerBlips) do
+            if not currentBlips[pedHandle] or not DoesEntityExist(pedHandle) then
+                RemoveBlip(blip)
+                hookerBlips[pedHandle] = nil
+            end
+        end
+
+        Wait(5000) -- Adjust interval for performance
+    end
+end)
+
+
 -- Events --
 AddEventHandler('gameEventTriggered', function(event, args)
     if event == "CEventNetworkPlayerEnteredVehicle" then

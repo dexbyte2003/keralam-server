@@ -9,8 +9,8 @@ Config.MaxServices = 5
 -- The maximum speed (meters per seconds) your vehicle can have before it checks for nearby hookers etc.
 Config.MaxVehicleSpeed = 0.1
 
-Config.PaymentEnabled = true
-Config.Framework = "standalone" -- "esx", "qbcore", "ndcore" or "standalone" (used for the payments)
+Config.PaymentEnabled = false
+Config.Framework = "qbcore" -- "esx", "qbcore", "ndcore" or "standalone" (used for the payments)
 Config.Prices = {
     SERVICE_BLOWJOB = 50000,
     SERVICE_SEX = 100000
