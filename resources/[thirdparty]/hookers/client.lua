@@ -626,6 +626,50 @@ CreateThread(function()
 end)
 
 
+-- Add to client.lua
+RegisterCommand('locateprostitute', function()
+    local playerPed = PlayerPedId()
+    local playerCoords = GetEntityCoords(playerPed)
+    
+    -- Get position in front of player
+    local forwardOffset = GetOffsetFromEntityInWorldCoords(playerPed, 0.0, 5.0, 0.0)
+    local _, groundZ = GetGroundZFor_3dCoord(forwardOffset.x, forwardOffset.y, forwardOffset.z, false)
+    local spawnCoords = vector3(forwardOffset.x, forwardOffset.y, groundZ)
+
+    -- Get random hooker model from config
+    local hookerModels = {}
+    for model, _ in pairs(Config.HookerPedModels) do
+        table.insert(hookerModels, model)
+    end
+    local selectedModel = hookerModels[math.random(#hookerModels)]
+
+    -- Load model
+    RequestModel(selectedModel)
+    while not HasModelLoaded(selectedModel) do
+        Wait(0)
+    end
+
+    -- Create hooker ped
+    local hooker = CreatePed(4, selectedModel, spawnCoords.x, spawnCoords.y, spawnCoords.z, 0.0, true, true)
+    SetEntityHeading(hooker, GetEntityHeading(playerPed) + 180.0)
+    SetModelAsNoLongerNeeded(selectedModel)
+
+    -- Set up hooker behavior
+    MakeHookerCalm(hooker)
+    TaskWanderStandard(hooker, 10.0, 10)
+
+    -- Set waypoint
+    SetNewWaypoint(spawnCoords.x, spawnCoords.y)
+    
+    -- Notification
+    BeginTextCommandThefeedPost("STRING")
+    AddTextComponentSubstringPlayerName("Prostitute located - waypoint set to her position")
+    EndTextCommandThefeedPostTicker(false, true)
+end, false)
+
+
+
+
 -- Events --
 AddEventHandler('gameEventTriggered', function(event, args)
     if event == "CEventNetworkPlayerEnteredVehicle" then
