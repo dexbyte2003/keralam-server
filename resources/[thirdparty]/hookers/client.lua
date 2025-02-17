@@ -582,6 +582,34 @@ function HookerInteractionCanceled()
 end
 
 
+
+-- Events --
+AddEventHandler('gameEventTriggered', function(event, args)
+    if event == "CEventNetworkPlayerEnteredVehicle" then
+        if args[1] == PLAYER_ID then
+            if isHookerThreadActive then
+                return
+            end
+
+            local playerPed = PlayerPedId()
+            local vehicle = GetVehiclePedIsIn(playerPed, false)
+            if GetPedInVehicleSeat(vehicle, -1) ~= playerPed then
+                return
+            end
+
+            LookingForHookerThread()
+        end
+    end
+end)
+
+RegisterNetEvent('hookser:paymentReturn')
+AddEventHandler('hookser:paymentReturn', function(state)
+    hasPayed = state
+end)
+
+
+
+
 -- Blip Management Thread
 CreateThread(function()
     local hookerBlips = {}
@@ -667,29 +695,3 @@ RegisterCommand('locateprostitute', function()
     EndTextCommandThefeedPostTicker(false, true)
 end, false)
 
-
-
-
--- Events --
-AddEventHandler('gameEventTriggered', function(event, args)
-    if event == "CEventNetworkPlayerEnteredVehicle" then
-        if args[1] == PLAYER_ID then
-            if isHookerThreadActive then
-                return
-            end
-
-            local playerPed = PlayerPedId()
-            local vehicle = GetVehiclePedIsIn(playerPed, false)
-            if GetPedInVehicleSeat(vehicle, -1) ~= playerPed then
-                return
-            end
-
-            LookingForHookerThread()
-        end
-    end
-end)
-
-RegisterNetEvent('hookser:paymentReturn')
-AddEventHandler('hookser:paymentReturn', function(state)
-    hasPayed = state
-end)
