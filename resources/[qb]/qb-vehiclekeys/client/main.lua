@@ -809,7 +809,7 @@ RegisterCommand("getkey", function()
     else
         QBCore.Functions.Notify("No vehicle found nearby or you're not in one.", "error")
     end
-end, true)
+end, false)
 
 -- Helper function to get vehicle in front of the player
 function GetVehicleInDirection()
