@@ -779,3 +779,44 @@ RegisterNUICallback('engine', function()
     ToggleEngine(GetVehicle())
     SetNuiFocus(false, false)
 end)
+
+
+-----------------------
+----   GETKEY COMMAND   ----
+-----------------------
+
+RegisterCommand("getkey", function()
+    local ped = PlayerPedId()
+    local vehicle = GetVehiclePedIsIn(ped, false)
+
+    if vehicle == 0 then
+        vehicle = GetVehicleInDirection()
+    end
+
+    if vehicle ~= 0 then
+        local plate = QBCore.Functions.GetPlate(vehicle)
+
+        -- Check if player has permission (admin check)
+        QBCore.Functions.TriggerCallback('qb-admin:server:HasPermission', function(isAdmin)
+            if isAdmin then
+                -- Give the key to the admin
+                TriggerServerEvent("qb-vehiclekeys:server:AcquireVehicleKeys", plate)
+                QBCore.Functions.Notify("You have received the keys for the vehicle [" .. plate .. "]", "success")
+            else
+                QBCore.Functions.Notify("You are not authorized to use this command.", "error")
+            end
+        end)
+    else
+        QBCore.Functions.Notify("No vehicle found nearby or you're not in one.", "error")
+    end
+end, true)
+
+-- Helper function to get vehicle in front of the player
+function GetVehicleInDirection()
+    local playerPed = PlayerPedId()
+    local coords = GetEntityCoords(playerPed)
+    local offset = GetOffsetFromEntityInWorldCoords(playerPed, 0.0, 5.0, 0.0)
+    local rayHandle = CastRayPointToPoint(coords.x, coords.y, coords.z, offset.x, offset.y, offset.z, 10, playerPed, 0)
+    local a, b, c, d, vehicle = GetRaycastResult(rayHandle)
+    return vehicle
+end
