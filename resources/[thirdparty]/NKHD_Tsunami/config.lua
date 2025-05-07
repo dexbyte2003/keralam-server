@@ -1,6 +1,6 @@
 Config = {}
 
-Config.Framework = "ESX" -- "ESX", "QBCore" or "none" if none everyone can open the menu
+Config.Framework = "QBCore" -- "ESX", "QBCore" or "none" if none everyone can open the menu
 Config.AdminPermission = true
 
 Config.maxWaterHeight = 250.0 -- How high the Water gets until it Stops
