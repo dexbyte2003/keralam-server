@@ -1,7 +1,7 @@
 Config = {}
 
-Config.Framework = "none" -- "ESX", "QBCore" or "none" if none everyone can open the menu
-Config.AdminPermission = true
+Config.Framework = "QBCore" -- "ESX", "QBCore" or "none" if none everyone can open the menu
+Config.AdminPermission = false
 
 Config.maxWaterHeight = 250.0 -- How high the Water gets until it Stops
 Config.tsunamiSpeed = 0.05 -- How many Meters the Water gets up per WaterWaitingTime
