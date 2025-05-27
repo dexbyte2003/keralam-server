@@ -382,4 +382,7 @@ QBShared.Items = {
     newscam                      = { name = 'newscam', label = 'News Camera', weight = 100, type = 'item', image = 'newscam.png', unique = true, useable = true, shouldClose = true, description = 'A camera for the news' },
     newsmic                      = { name = 'newsmic', label = 'News Microphone', weight = 100, type = 'item', image = 'newsmic.png', unique = true, useable = true, shouldClose = true, description = 'A microphone for the news' },
     newsbmic                     = { name = 'newsbmic', label = 'Boom Microphone', weight = 100, type = 'item', image = 'newsbmic.png', unique = true, useable = true, shouldClose = true, description = 'A Useable BoomMic' },
+
+    -- Shared Items
+    skateboard 			     	= {name = 'skateboard', label = 'Skateboard', weight = 3000, type = 'item', image = 'skateboard.png', unique = true, useable = true, shouldClose = true, combinable = nil, description = 'Skateboard'},
 }
