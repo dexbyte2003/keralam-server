@@ -222,4 +222,5 @@ return {
 		label = 'Scrap Metal',
 		weight = 80,
 	},
+	
 }
