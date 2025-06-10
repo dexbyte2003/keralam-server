@@ -770,6 +770,7 @@ local Vehicles = {
     { model = 'oycdefender',         name = 'Land Rover Defender 2',  brand = 'Land Rover',   price = 100000,  category = 'offroad',    type = 'automobile',       shop = 'pdm' },
     { model = 'venatusc',         name = 'LAMBORGHINI URUS',  brand = 'LAMBORGHINI',   price = 900000000,  category = 'super',    type = 'automobile',       shop = 'luxury' },
     { model = 'cybertruckv',         name = 'Tesla Cybertruck',  brand = 'Tesla',   price = 900000000,  category = 'super',    type = 'automobile',       shop = 'luxury' },
+    { model = '3erg20',         name = 'BMW',  brand = 'BMW',   price = 900000000,  category = 'super',    type = 'automobile',       shop = 'luxury' },
 
 
 }
