@@ -768,6 +768,7 @@ local Vehicles = {
     { model = 'jdbullet2.0',         name = 'Royal Enfield Bullet 350',  brand = 'Royal Enfield',   price = 100000,  category = 'motorcycles',    type = 'bike',       shop = 'pdm' },
     { model = 'defender',         name = 'Land Rover Defender',  brand = 'Land Rover',   price = 100000,  category = 'offroad',    type = 'automobile',       shop = 'pdm' },
     { model = 'oycdefender',         name = 'Land Rover Defender 2',  brand = 'Land Rover',   price = 100000,  category = 'offroad',    type = 'automobile',       shop = 'pdm' },
+    { model = 'venatusc',         name = 'LAMBORGHINI URUS',  brand = 'LAMBORGHINI',   price = 900000000,  category = 'super',    type = 'automobile',       shop = 'luxury' },
 
 
 }
