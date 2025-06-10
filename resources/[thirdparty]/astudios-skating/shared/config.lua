@@ -1,5 +1,5 @@
 Config = {}
-Config.Debug = false -- True / False for Debug System
+Config.Debug = true -- True / False for Debug System
 
 Config.Framework = "qb" -- Pick your framework: "qb" or "esx" - Default: "qb"
 
