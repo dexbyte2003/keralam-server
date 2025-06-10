@@ -1,6 +1,5 @@
 fx_version 'cerulean'
-game { 'gta5' }
-lua54 'yes'
+game 'gta5'
 
 author 'VVS'
 description 'CyberTruckV'
