@@ -3,7 +3,7 @@
 <CHandlingDataMgr>
   <HandlingData>
     <Item type="CHandlingData">
-      <handlingName>CyberTruckV</handlingName>
+      <handlingName>cybertruckv</handlingName>
       <fMass value="2100.000000" />
       <fInitialDragCoeff value="11.25000" />
       <fPercentSubmerged value="85.000000" />

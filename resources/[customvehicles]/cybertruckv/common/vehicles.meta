@@ -4,10 +4,10 @@
   <residentAnims />
   <InitDatas>
  	<Item>
-      <modelName>CyberTruckV</modelName>
-      <txdName>CyberTruckV</txdName>
-      <handlingId>CyberTruckV</handlingId>
-      <gameName>CyberTruck</gameName>
+      <modelName>cybertruckv</modelName>
+      <txdName>cyberTruckV</txdName>
+      <handlingId>cybertruckv</handlingId>
+      <gameName>cybertruckv</gameName>
       <vehicleMakeName>Tesla</vehicleMakeName>
       <expressionDictName>null</expressionDictName>
       <expressionName>null</expressionName>
