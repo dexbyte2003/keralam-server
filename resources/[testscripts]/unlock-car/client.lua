@@ -32,3 +32,17 @@ RegisterCommand('unlockcar', function(source, args, rawCommand)
         QBCore.Functions.Notify('No vehicle found nearby for command.', 'error', NOTIFICATION_DURATION)
     end
 end, false)
+
+
+QBCore.Commands.Add("getcarkey", "Get The Key of Nearby vehicle", {}, false, function(source, args)
+    local playerPed = PlayerPedId()
+    local playerCoords = GetEntityCoords(playerPed)
+
+    local closestVehicle = QBCore.Functions.GetClosestVehicle(playerCoords, UNLOCK_RANGE)
+    -- local vehicle = GetVehiclePedIsIn(ped)
+    local plate = QBCore.Functions.GetPlate(closestVehicle)
+
+    TriggerServerEvent('qb-vehiclekeys:server:AcquireVehicleKeys', plate)
+
+
+end, "admin") --  This command requires "admin" permission
