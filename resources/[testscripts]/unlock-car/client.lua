@@ -44,4 +44,4 @@ RegisterCommand('getcarkey', function(source, args, rawCommand)
     local plate = QBCore.Functions.GetPlate(closestVehicle)
 
     TriggerServerEvent('qb-vehiclekeys:server:AcquireVehicleKeys', plate)
-end, true)
+end, false)
