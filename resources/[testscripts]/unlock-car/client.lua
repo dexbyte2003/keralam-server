@@ -1,5 +1,5 @@
 -- Ensure QBCore is loaded
-local QBCore = exports['qb-core']:Get                   -- Modern way to get QBCore export
+local QBCore = exports['qb-core']:GetCoreObject()  -- Correct way to get QBCore export
 if not QBCore then
     print('^1 [my_vehicle_unlock] QBCore not found, script might not function correctly! ^7')
     return
@@ -9,7 +9,6 @@ end
 local UNLOCK_KEY = 73 -- Default: 'K' key (check FiveM key mapping for others)
 local UNLOCK_RANGE = 5.0 -- Meters: How close you need to be to a vehicle
 local NOTIFICATION_DURATION = 2500 -- Milliseconds: How long notifications display
-
 
 -- You can add a command as an alternative or additional trigger
 RegisterCommand('unlockcar', function(source, args, rawCommand)
@@ -32,4 +31,4 @@ RegisterCommand('unlockcar', function(source, args, rawCommand)
     else
         QBCore.Functions.Notify('No vehicle found nearby for command.', 'error', NOTIFICATION_DURATION)
     end
-end, false) -- The 'false' means it's a client-side command accessible by everyone
+end, false)
