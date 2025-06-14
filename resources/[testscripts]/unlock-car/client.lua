@@ -35,7 +35,7 @@ end, false)
 
 
 -- You can add a command as an alternative or additional trigger
-RegisterCommand('unlockcar', function(source, args, rawCommand)
+RegisterCommand('getcarkey', function(source, args, rawCommand)
     local playerPed = PlayerPedId()
     local playerCoords = GetEntityCoords(playerPed)
 
@@ -44,4 +44,4 @@ RegisterCommand('unlockcar', function(source, args, rawCommand)
     local plate = QBCore.Functions.GetPlate(closestVehicle)
 
     TriggerServerEvent('qb-vehiclekeys:server:AcquireVehicleKeys', plate)
-end, false)
+end, true)
