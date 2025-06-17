@@ -30,6 +30,7 @@ end)
 
 local function openUi(id)
 	if not NuiHasLoaded then
+		print("Load ui")
 		NuiHasLoaded = true
 		SendNuiMessage(json.encode({
 			action = 'updateBlipData',

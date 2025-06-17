@@ -2,7 +2,7 @@
 
 Blip management resource, with compatibility for qb-core, and es_extended.
 
-_The UI needs to be built - use the [latest release](https://drive.google.com/file/d/1CPw2yzsAkkd7u0gQOFq-xDyEboGyyLgJ/view?usp=sharing) if you want to drag-n-drop._
+_The UI needs to be built - use the [latest release](https://github.com/dolaji-op/ds_blipcreator/releases/latest/download/ds_blipcreator.zip) if you want to drag-n-drop._
 
 ## Dependencies
 
@@ -15,19 +15,11 @@ mysql-async is no longer supported.
   - people use older versions which do not support parameters as arrays
   - it isn't maintained and has issues that will never be resolved
 
-## Instalaction
-Just run the runme.sql file to your database.
-
-
 ## Usage
 
 Use the `/blipcreator` command to open the UI and enter the settings for your new blip.
 
-## Contact
 
-If you have any questions or feedback, please join our [Discord server](https://discord.gg/dolaji-s-scripts-952174929518936114) and let us know!
-
-[![Discord Server](https://img.shields.io/discord/952174929518936114?color=7289DA&label=Discord&logo=discord&logoColor=ffffff)](https://discord.gg/dolaji-s-scripts-952174929518936114)
 
 ## Blip Settings
 
@@ -71,8 +63,3 @@ If you have any questions or feedback, please join our [Discord server](https://
 - Grade
   - The minimum grade to allow access for the group (0 to allow all).
 
-## Credits
-
-- [oxmysql](https://github.com/overextended/oxmysql) by Overextended
-- [ox_doorlock](https://github.com/overextended/ox_doorlock) by Overextended
-- [ds_blipcreator](https://github.com/dolaji-op/ds_blipcreator) by Dolaji

@@ -115,5 +115,7 @@ end)
 RegisterCommand("blipcreator", function(source)
     if IsPlayerAceAllowed(source, 'command.blipcreator') then
 		TriggerClientEvent('ds_blipcreator:triggeredCommand', source)
+	else
+		print("You don't have permission")
 	end
 end, true)
