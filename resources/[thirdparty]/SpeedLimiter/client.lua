@@ -94,7 +94,7 @@ RegisterCommand("setSpeed", function(source, args, rawCommand)
 end, false)
 
 
-
+local QBCore = exports['qb-core']:GetCoreObject()  -- Correct way to get QBCore export
 local cruiseEnabled = false
 local cruiseSpeed = 0.0
 
