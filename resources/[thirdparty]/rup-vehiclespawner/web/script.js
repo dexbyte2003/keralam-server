@@ -212,6 +212,8 @@ function filterVehicles(searchTerm) {
       const allVehicles = Object.entries(vehicleModels).flatMap(([category, vehicles]) =>
          vehicles.map(vehicle => ({ ...vehicle, category: category})));
 
+      console.log(allVehicles)
+
       // const filteredVehicles = allVehicles
       //    .filter(vehicle => vehicle.model.toLowerCase().includes(searchTerm))
       //    .sort((a, b) => a.model.localeCompare(b.model));
