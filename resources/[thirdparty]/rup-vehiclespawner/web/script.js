@@ -217,11 +217,23 @@ function filterVehicles(searchTerm) {
       //    .sort((a, b) => a.model.localeCompare(b.model));
 
          const filteredVehicles = allVehicles
-            .filter(vehicle =>
-               vehicle.model.toLowerCase().includes(searchTerm.toLowerCase()) ||
-               vehicle.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase()))
-            )
-            .sort((a, b) => a.model.localeCompare(b.model));
+         .filter(vehicle => {
+            const modelMatch = vehicle.model.toLowerCase().includes(searchTerm.toLowerCase());
+
+            let tagMatch = false;
+
+            if (Array.isArray(vehicle.tags)) {
+               tagMatch = vehicle.tags.some(tag =>
+               tag.toLowerCase().includes(searchTerm.toLowerCase())
+               );
+            } else {
+               console.log(`Non-array tags for vehicle model "${vehicle.model}":`, vehicle.tags);
+            }
+
+            return modelMatch || tagMatch;
+         })
+         .sort((a, b) => a.model.localeCompare(b.model));
+
 
       if (currentCategory === 'All') {
          filteredVehicles.forEach(vehicle => {
