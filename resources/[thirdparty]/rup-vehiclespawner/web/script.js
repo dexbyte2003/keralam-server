@@ -212,9 +212,16 @@ function filterVehicles(searchTerm) {
       const allVehicles = Object.entries(vehicleModels).flatMap(([category, vehicles]) =>
          vehicles.map(vehicle => ({ ...vehicle, category: category})));
 
-      const filteredVehicles = allVehicles
-         .filter(vehicle => vehicle.model.toLowerCase().includes(searchTerm))
-         .sort((a, b) => a.model.localeCompare(b.model));
+      // const filteredVehicles = allVehicles
+      //    .filter(vehicle => vehicle.model.toLowerCase().includes(searchTerm))
+      //    .sort((a, b) => a.model.localeCompare(b.model));
+
+         const filteredVehicles = allVehicles
+            .filter(vehicle =>
+               vehicle.model.toLowerCase().includes(searchTerm.toLowerCase()) ||
+               vehicle.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase()))
+            )
+            .sort((a, b) => a.model.localeCompare(b.model));
 
       if (currentCategory === 'All') {
          filteredVehicles.forEach(vehicle => {
