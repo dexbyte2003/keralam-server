@@ -223,12 +223,14 @@ function filterVehicles(searchTerm) {
             let tagMatch = false;
 
             if (Array.isArray(vehicle.tags)) {
+               console.log(`array tags for vehicle model "${vehicle.model}":`, vehicle.tags);
                tagMatch = vehicle.tags.some(tag =>
                tag.toLowerCase().includes(searchTerm.toLowerCase())
                );
-            } else {
-               console.log(`Non-array tags for vehicle model "${vehicle.model}":`, vehicle.tags);
-            }
+            } 
+            // else {
+            //    console.log(`Non-array tags for vehicle model "${vehicle.model}":`, vehicle.tags);
+            // }
 
             return modelMatch || tagMatch;
          })
