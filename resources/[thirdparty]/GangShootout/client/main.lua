@@ -69,6 +69,9 @@ function StartShootout()
         local ped = CreatePed(1, settings.peds[math.random(1, #settings.peds)], settings.spawnlocs[math.random(1, #settings.spawnlocs)], 10.55, true, false)
 
         SetPedRelationshipGroupHash(ped, GetHashKey('AMBIENT_GANG_LOST'))
+        SetRelationshipBetweenGroups(5, GetHashKey('AMBIENT_GANG_LOST'), GetHashKey("PLAYER"))
+        SetRelationshipBetweenGroups(5, GetHashKey("PLAYER"), GetHashKey('AMBIENT_GANG_LOST'))
+
         GiveWeaponToPed(ped, settings.weapons[math.random(1, #settings.weapons)], 999, false, true)
         TaskCombatPed(ped, PlayerPedId(), 0, 16)
     end
