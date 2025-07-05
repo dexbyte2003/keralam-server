@@ -1,285 +1,287 @@
-<html>
-
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta id="viewport" name="viewport"
-        content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <link rel="stylesheet" type="text/css" href="styles.css" />
-    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.13.0/css/all.css" />
-    <link href="https://cdn.jsdelivr.net/npm/quasar@2.1.0/dist/quasar.prod.css" rel="stylesheet" type="text/css" />
-    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900|Material+Icons" rel="stylesheet"
-        type="text/css" />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vue@3/dist/vue.global.prod.js" defer></script>
-    <script src="https://cdn.jsdelivr.net/npm/quasar@2.1.0/dist/quasar.umd.prod.js" defer></script>
-    <script src="app.js" defer></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Keralam Server Interface</title>
+    
+    <!-- Tailwind CSS for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts for futuristic typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* Custom styles for the futuristic theme */
+        body {
+            font-family: 'Rajdhani', sans-serif;
+            background-color: #000000;
+            overflow: hidden; /* Prevents scrollbars */
+        }
+
+        /* Use Orbitron for headings and key elements */
+        .font-orbitron {
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        /* Background video styling */
+        #background-video {
+            position: fixed;
+            right: 0;
+            bottom: 0;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            z-index: -100;
+            object-fit: cover;
+            transition: opacity 1.5s ease-in-out;
+            opacity: 0;
+        }
+
+        /* Overlay to add a dark tint and texture to the video */
+        .video-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            background-image: linear-gradient(rgba(0, 255, 255, 0.07) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 255, 255, 0.07) 1px, transparent 1px);
+            background-size: 20px 20px;
+            z-index: -99;
+        }
+
+        /* Glowing effect for buttons and borders */
+        .glow-effect {
+            box-shadow: 0 0 5px rgba(0, 255, 255, 0.5), 0 0 10px rgba(0, 255, 255, 0.4), 0 0 20px rgba(0, 255, 255, 0.3), 0 0 40px rgba(0, 255, 255, 0.2);
+        }
+        .glow-effect-button:hover {
+            box-shadow: 0 0 8px rgba(0, 255, 255, 0.8), 0 0 15px rgba(0, 255, 255, 0.7), 0 0 25px rgba(0, 255, 255, 0.6), 0 0 50px rgba(0, 255, 255, 0.5);
+        }
+
+        /* Modal styling */
+        .modal-backdrop { background-color: rgba(0, 0, 0, 0.8); backdrop-filter: blur(5px); }
+        .modal-content { background: linear-gradient(145deg, rgba(10, 25, 40, 0.9), rgba(5, 15, 25, 0.95)); border: 1px solid rgba(0, 255, 255, 0.3); }
+
+        /* Input field styling */
+        .futuristic-input { background-color: rgba(0, 25, 35, 0.8); border: 1px solid rgba(0, 255, 255, 0.4); color: #9feaf9; transition: all 0.3s ease; }
+        .futuristic-input:focus { outline: none; border-color: rgba(0, 255, 255, 0.8); box-shadow: 0 0 10px rgba(0, 255, 255, 0.5); }
+        .futuristic-input::placeholder { color: rgba(159, 234, 249, 0.5); }
+
+        /* Loading animation styling */
+        .loader-container { display: flex; flex-direction: column; align-items: center; justify-content: center; }
+        .loader-text { color: #00ffff; text-shadow: 0 0 5px #00ffff, 0 0 10px #00ffff; letter-spacing: 3px; animation: flicker 2s infinite linear; }
+        .scanner-line { width: 100%; height: 3px; background: linear-gradient(90deg, transparent, #00ffff, transparent); animation: scan 3s infinite ease-in-out; border-radius: 50%; }
+
+        /* NEW: Futuristic HUD Overlay */
+        #hud-overlay {
+            position: fixed;
+            bottom: 2rem;
+            left: 2rem;
+            width: 350px;
+            height: 200px;
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            background: rgba(10, 25, 40, 0.5);
+            backdrop-filter: blur(3px);
+            padding: 1rem;
+            color: #00ffff;
+            transition: opacity 1s ease-in-out;
+            opacity: 0;
+            z-index: 10;
+        }
+
+        /* NEW: HUD corner brackets */
+        .hud-corner { position: absolute; width: 20px; height: 20px; border-color: #00ffff; border-style: solid; }
+        .top-left { top: -5px; left: -5px; border-width: 2px 0 0 2px; }
+        .top-right { top: -5px; right: -5px; border-width: 2px 2px 0 0; }
+        .bottom-left { bottom: -5px; left: -5px; border-width: 0 0 2px 2px; }
+        .bottom-right { bottom: -5px; right: -5px; border-width: 0 2px 2px 0; }
+
+        /* NEW: Animated message text */
+        #hud-message {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.1rem;
+            white-space: nowrap;
+            overflow: hidden;
+            border-right: .15em solid #00ffff;
+            animation: typing 3.5s steps(40, end), blink-caret .75s step-end infinite;
+        }
+
+        /* NEW: Animated futuristic object */
+        #hud-object {
+            width: 60px;
+            height: 60px;
+            border: 2px solid rgba(0, 255, 255, 0.5);
+            border-radius: 50%;
+            position: relative;
+            animation: rotate-object 8s linear infinite, pulse-object 2s infinite ease-in-out;
+        }
+        #hud-object::before, #hud-object::after {
+            content: '';
+            position: absolute;
+            border: 1px solid #00ffff;
+            border-radius: 50%;
+        }
+        #hud-object::before { top: 5px; left: 5px; right: 5px; bottom: 5px; animation: rotate-object 6s linear infinite reverse; }
+        #hud-object::after { top: 12px; left: 12px; right: 12px; bottom: 12px; background: rgba(0, 255, 255, 0.2); }
+
+        /* Keyframe animations */
+        @keyframes flicker { 0%, 18%, 22%, 25%, 53%, 57%, 100% { text-shadow: 0 0 4px #00ffff, 0 0 11px #00ffff, 0 0 19px #00ffff, 0 0 40px #0ff, 0 0 80px #0ff; } 20%, 24%, 55% { text-shadow: none; } }
+        @keyframes scan { 0% { transform: translateY(-10px); opacity: 0.5; } 50% { transform: translateY(10px); opacity: 1; } 100% { transform: translateY(-10px); opacity: 0.5; } }
+        
+        /* NEW: Keyframes for HUD */
+        @keyframes typing { from { width: 0 } to { width: 100% } }
+        @keyframes blink-caret { from, to { border-color: transparent } 50% { border-color: #00ffff; } }
+        @keyframes rotate-object { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        @keyframes pulse-object { 0% { box-shadow: 0 0 5px #00ffff; } 50% { box-shadow: 0 0 20px #00ffff; } 100% { box-shadow: 0 0 5px #00ffff; } }
+    </style>
 </head>
-<!-- This is where you want to replace with your audio -->
+<body class="text-gray-200">
 
-<!--audio autoplay loop id="audio" src="/assets/audio/noncopyright.mp3"></audio -->
+    <!-- Background Video Element -->
+    <div class="video-overlay"></div>
+    <video id="background-video" loop playsinline>
+        <source id="video-source" src="https://videos.pexels.com/video-files/8566494/8566494-hd_1920_1080_25fps.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
 
-<body>
-    <div id="loading-main" style="min-height: auto;">
-
-        <!-- Uncomment q-parallax and comment out q-carousel if you want to use a video background instead -->
-
-        <q-carousel animated v-model="firstslide" :autoplay="secondap" ref="carousel" infinite>
-            <q-carousel-slide :name="1" img-src="/assets/images/1.png"></q-carousel-slide>
-            <q-carousel-slide :name="2" img-src="/assets/images/2.png"></q-carousel-slide>
-            <q-carousel-slide :name="3" img-src="/assets/images/3.png"></q-carousel-slide>
-            <q-carousel-slide :name="4" img-src="/assets/images/4.png"></q-carousel-slide>
-        </q-carousel>
-
-        <!-- This is where you want to replace with your video -->
-
-
-        <!-- <div style="position: fixed; top: 0; left: 0; width: 100%; height: 100%;">
-                <video id="video" style="width: 100%; height: 100%; object-fit: cover;" autoplay loop muted>
-                    <source type="video/mp4" src="/assets/video/freestockvideo.mp4">
-                </video>
-            </div> -->
-
-        <!-- <iframe id="video" style="width: 100%; height: 100%; object-fit: cover;"
-            src="https://www.youtube.com/embed/8cVkLeCqUHk?autoplay=1"
-            title="Keralam Server" frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
-        </iframe> -->
-
-        <video id="video" style="width: 100%; height: 100%; object-fit: cover;" src="https://res.cloudinary.com/dtprigoy4/video/upload/v1741989662/Think_Music_India_-_Vazhithunaiye_Video_Song___Dragon___Pradeep_Ranganathan_Kayadu___Ashwath_Marimuthu___Leon_James_1080p_z9x5sm.mp4" autoplay></video>
-
-
-
-        <div class="absolute-top q-pa-xl">
-            <q-card flat style="width: auto; background: transparent;">
-                <q-card-section class="row items-center no-wrap">
-                    <q-carousel animated infinite :autoplay="secondap" v-model="secondslide" transition-next="fade"
-                        transition-prev="fade" class="bg-transparent text-white">
-                        <q-carousel-slide name="1" class="column no-wrap flex-center">
-                            <div style="width: 30vw; white-space: pre-wrap;" class="text-left text-h6">
-                                {{ CarouselText1 }}
-                            </div>
-                            <div style="opacity: 0.9; width: 30vw; white-space: pre-wrap;" class="text-left text-body1">
-                                {{ CarouselSubText1 }}
-                            </div>
-                        </q-carousel-slide>
-                        <q-carousel-slide name="2" class="column no-wrap flex-center">
-                            <div style="width: 30vw; white-space: pre-wrap;" class="text-left text-h6">
-                                {{ CarouselText2 }}
-                            </div>
-                            <div style="opacity: 0.9; width: 30vw; white-space: pre-wrap;" class="text-left text-body1">
-                                {{ CarouselSubText2 }}
-                            </div>
-                        </q-carousel-slide>
-                        <q-carousel-slide name="3" class="column no-wrap flex-center">
-                            <div style="width: 30vw; white-space: pre-wrap;" class="text-left text-h6">
-                                {{ CarouselText3 }}
-                            </div>
-                            <div style="opacity: 0.9; width: 30vw; white-space: pre-wrap;" class="text-left text-body1">
-                                {{ CarouselSubText3 }}
-                            </div>
-                        </q-carousel-slide>
-                        <q-carousel-slide name="4" class="column no-wrap flex-center">
-                            <div style="width: 30vw; white-space: pre-wrap;" class="text-left text-h6">
-                                {{ CarouselText4 }}
-                            </div>
-                            <div style="opacity: 0.9; width: 30vw; white-space: pre-wrap;" class="text-left text-body1">
-                                {{ CarouselSubText4 }}
-                            </div>
-                        </q-carousel-slide>
-                    </q-carousel>
-                    <q-space></q-space>
-                    <q-carousel animated style="width: 28vw;" infinite :autoplay="thirdap" v-model="thirdslide"
-                        transition-next="fade" transition-prev="fade" control-color="white" arrows padding
-                        class="bg-transparent text-white">
-                        <q-carousel-slide name="5" class="column no-wrap flex-center">
-                            <div style="width: 30vw; white-space: pre-wrap;"
-                                class="text-weight-regular text-center text-body1">
-                                {{ KeybindTitle }}
-                            </div>
-                            <div class="q-mt-md text-center">
-                                <q-btn :ripple="false" flat stack><q-avatar square size="33px"><img
-                                            style="width: 60px!important;" src="/assets/keybinds/TAB.svg"></q-avatar>
-                                    <div style="font-size: 10px;">
-                                        {{ Keybind1 }}
-                                    </div>
-                                </q-btn>
-                                <q-btn :ripple="false" flat stack><q-avatar square size="33px"><img
-                                            src="/assets/keybinds/Tilde.svg"></q-avatar>
-                                    <div style="font-size: 10px;">
-                                        {{ Keybind2 }}
-                                    </div>
-                                </q-btn>
-                                <q-btn :ripple="false" flat stack><q-avatar square size="33px"><img
-                                            src="/assets/keybinds/M.svg"></q-avatar>
-                                    <div style="font-size: 10px;">
-                                        {{ Keybind3 }}
-                                    </div>
-                                </q-btn>
-                                <q-btn :ripple="false" flat stack><q-avatar square size="33px"><img
-                                            src="/assets/keybinds/B.svg"></q-avatar>
-                                    <div style="font-size: 10px;">
-                                        {{ Keybind4 }}
-                                    </div>
-                                </q-btn>
-                                <br>
-                                <q-btn :ripple="false" flat stack><q-avatar square size="33px"><img
-                                            style="width: 60px!important;" src="/assets/keybinds/LALT.svg"></q-avatar>
-                                    <div style="font-size: 10px;">
-                                        {{ Keybind5 }}
-                                    </div>
-                                </q-btn>
-                                <q-btn :ripple="false" flat stack><q-avatar square size="33px"><img
-                                            src="/assets/keybinds/F1.svg"></q-avatar>
-                                    <div style="font-size: 10px;">
-                                        {{ Keybind6 }}
-                                    </div>
-                                </q-btn>
-                                <q-btn :ripple="false" flat stack><q-avatar square size="33px"><img
-                                            src="/assets/keybinds/I.svg"></q-avatar>
-                                    <div style="font-size: 10px;">
-                                        {{ Keybind7 }}
-                                    </div>
-                                </q-btn>
-                                <q-btn :ripple="false" flat stack><q-avatar square size="33px"><img
-                                            style="width: 60px!important;" src="/assets/keybinds/LALT.svg"></q-avatar>
-                                    <div style="font-size: 10px;">
-                                        {{ Keybind8 }}
-                                    </div>
-                                </q-btn>
-                            </div>
-                        </q-carousel-slide>
-                        <q-carousel-slide name="6" class="column no-wrap flex-center">
-                            <div style="width: 30vw; white-space: pre-wrap;"
-                                class="text-weight-regular text-center text-body1">
-                                {{ KeybindTitle }}
-                            </div>
-                            <div class="q-mt-md text-center">
-                                <q-btn :ripple="false" flat stack><q-avatar square size="33px"><img
-                                            src="/assets/keybinds/L.svg"></q-avatar>
-                                    <div style="font-size: 10px;">
-                                        {{ Keybind10 }}
-                                    </div>
-                                </q-btn>
-                                <q-btn :ripple="false" flat stack><q-avatar square size="33px"><img
-                                            src="/assets/keybinds/G.svg"></q-avatar>
-                                    <div style="font-size: 10px;">
-                                        {{ Keybind11 }}
-                                    </div>
-                                </q-btn>
-                                <q-btn :ripple="false" flat stack><q-avatar square size="33px"><img
-                                            src="/assets/keybinds/B.svg"></q-avatar>
-                                    <div style="font-size: 10px;">
-                                        {{ Keybind12 }}
-                                    </div>
-                                </q-btn>
-                                <q-btn :ripple="false" flat stack><q-avatar square size="33px"><img
-                                            style="width: 60px!important;" src="/assets/keybinds/HOME.svg"></q-avatar>
-                                    <div style="font-size: 10px;">
-                                        {{ Keybind9 }}
-                                    </div>
-                                </q-btn>
-                                <br>
-                                <q-btn :ripple="false" flat stack><q-avatar square size="33px"><img
-                                            style="width: 60px!important;" src="/assets/keybinds/Z.svg"></q-avatar>
-                                    <div style="font-size: 10px;">
-                                        {{ Keybind13 }}
-                                    </div>
-                                </q-btn>
-                                <q-btn :ripple="false" flat stack><q-avatar square size="33px"><img
-                                            style="width: 60px!important;" src="/assets/keybinds/X.svg"></q-avatar>
-                                    <div style="font-size: 10px;">
-                                        {{ Keybind14 }}
-                                    </div>
-                                </q-btn>
-                                <q-btn :ripple="false" flat stack><q-avatar square size="33px"><img
-                                            style="width: 60px!important;" src="/assets/keybinds/NUM.svg"></q-avatar>
-                                    <div style="font-size: 10px;">
-                                        {{ Keybind15 }}
-                                    </div>
-                                </q-btn>
-                                <q-btn active-class="remove-active" :ripple="false" flat stack><q-avatar square
-                                        size="33px"><img style="width: 60px!important;"
-                                            src="/assets/keybinds/Y.svg"></q-avatar>
-                                    <div style="font-size: 10px;">
-                                        {{ Keybind16 }}
-                                    </div>
-                                </q-btn>
-                            </div>
-                        </q-carousel-slide>
-                    </q-carousel>
-                </q-card-section>
-            </q-card>
+    <!-- Main Content Area -->
+    <div id="main-content" class="relative min-h-screen flex flex-col items-center justify-center p-4 transition-opacity duration-1000 opacity-100">
+        <!-- Initial button to open the popup -->
+        <div id="initial-view" class="text-center">
+            <h1 class="font-orbitron text-4xl md:text-6xl font-bold text-cyan-300 uppercase tracking-widest" style="text-shadow: 0 0 10px #00ffff;">Keralam Server</h1>
+            <p class="mt-4 text-lg text-cyan-400">Welcome to Keralam GTA5 RP Server</p>
+            <button id="open-modal-btn" class="mt-8 px-8 py-3 bg-cyan-500/20 border border-cyan-400 text-cyan-300 font-bold rounded-lg backdrop-blur-sm transition-all duration-300 glow-effect-button hover:bg-cyan-400 hover:text-black">INITIATE STREAM</button>
         </div>
 
-        <div class="absolute-bottom q-pa-xl">
-            <q-card flat style="width: auto; background: transparent;">
-                <q-card-section class="row items-center no-wrap">
-
-                    <!-- This is where you want to replace with your logo -->
-
-                    <img class="cursor-none brand-logo" src="/assets/branding/qbcore.svg"></img>
-                    <q-space></q-space>
-                    <q-btn :ripple="false" flat size="xl" icon="downloading" color="white"
-                        @click="download = true"></q-btn>
-                    <div class="loadingbar">
-                        <div class="loadbar">
-                            <div class="thingy"></div>
-                        </div>
-                    </div>
-                    <q-btn icon="settings_suggest" color="bgbutton" @click="settings = true"></q-btn>
-                </q-card-section>
-            </q-card>
+        <!-- Loading Animation -->
+        <div id="loading-animation" class="hidden loader-container">
+            <h2 class="font-orbitron text-2xl md:text-4xl loader-text">KERALAM SERVER IS LOADING</h2>
+            <div class="w-full max-w-md mt-6"><div class="scanner-line"></div></div>
+            <p class="mt-6 text-cyan-400 text-sm tracking-wider">Establishing connection... Authenticating... Processing video stream...</p>
         </div>
-
-        <q-dialog no-shake v-model="download" position="bottom">
-            <q-card style="max-width: 400px; margin-left: 50vw; margin-bottom: 13vh;">
-                <q-card-section>
-                    <div style="white-space: pre-wrap;" class="text-h6">
-                        {{ DownloadTitle }}
-                    </div>
-                </q-card-section>
-
-                <q-card-section style="white-space: pre-wrap;" class="q-pt-none text-weight-bold">
-                    {{ DownloadDesc }}
-                </q-card-section>
-
-                <q-card-actions align="left">
-                    <q-btn flat label="Hide details" color="detailbutton" v-close-popup></q-btn>
-                </q-card-actions>
-            </q-card>
-        </q-dialog>
-
-        <q-dialog no-shake v-model="settings" position="right">
-            <q-card style="max-width: 300px; margin-right: 3.4vw; top: 20vh!important;">
-                <q-card-section class="row items-center q-pb-none">
-                    <div style="white-space: pre-wrap;" class="text-h6">
-                        {{ SettingsTitle }}
-                    </div>
-                    <q-space></q-space>
-                    <q-btn icon="close" flat round dense v-close-popup></q-btn>
-                </q-card-section>
-
-                <q-card-section style="padding-top: 0px;">
-                    <q-toggle v-model="audioplay" size="lg" checked-icon="headset" keep-color color="togglecolor"
-                        label="Audio-track Enabled" unchecked-icon="headset_off" onclick="audiotoggle()"></q-toggle>
-                    <div style="white-space: pre-wrap;" class="text-h7 text-weight-medium q-mb-md-d">
-                        {{ AudioTrackDesc1 }}
-                    </div>
-                    <q-toggle v-model="secondap" size="lg" checked-icon="view_carousel" keep-color color="togglecolor"
-                        label="Auto-play Enabled" unchecked-icon="image"></q-toggle>
-                    <div style="white-space: pre-wrap;" class="text-h7 text-weight-medium q-mb-md-d">
-                        {{ AutoPlayDesc2 }}
-                    </div>
-                    <q-toggle v-model="playvideo" size="lg" checked-icon="play_arrow" keep-color color="togglecolor"
-                        label="Play-video Enabled" unchecked-icon="play_disabled" onclick="videotoggle()"></q-toggle>
-                    <div style="white-space: pre-wrap;" class="text-h7 text-weight-medium q-mb-md-d">
-                        {{ PlayVideoDesc3 }}
-                    </div>
-                </q-card-section>
-            </q-card>
-        </q-dialog>
     </div>
-</body>
 
+    <!-- Popup Modal -->
+    <div id="url-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 modal-backdrop">
+        <div class="modal-content w-full max-w-lg rounded-lg shadow-lg glow-effect p-8">
+            <h2 class="font-orbitron text-2xl text-cyan-300 mb-4">Enter Video Stream URL</h2>
+            <p class="text-cyan-400 mb-6 text-sm">Provide a YouTube video URL to project as the background. The server will process and stream it.</p>
+            <form id="url-form">
+                <input id="youtube-url" type="text" placeholder="https://www.youtube.com/watch?v=..." class="futuristic-input w-full p-3 rounded-md text-lg" required>
+                <div class="flex justify-end space-x-4 mt-6">
+                    <button type="button" id="cancel-btn" class="px-6 py-2 bg-gray-600/30 border border-gray-500 rounded-md hover:bg-gray-500 transition-colors">Cancel</button>
+                    <button type="submit" class="px-6 py-2 bg-cyan-500/30 border border-cyan-400 text-cyan-300 font-bold rounded-md hover:bg-cyan-400 hover:text-black transition-colors glow-effect-button">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <!-- NEW: Futuristic HUD Overlay -->
+    <div id="hud-overlay" class="hidden">
+        <div class="hud-corner top-left"></div><div class="hud-corner top-right"></div>
+        <div class="hud-corner bottom-left"></div><div class="hud-corner bottom-right"></div>
+        
+        <div class="flex items-center justify-between h-full">
+            <div class="flex flex-col justify-between h-full py-2">
+                <div>
+                    <p id="hud-message">CONNECTING TO KERALAM ...</p>
+                    <p class="text-xs text-cyan-300/70 mt-1">STATUS: <span class="text-green-400">ONLINE</span></p>
+                </div>
+                <button id="unmute-btn" class="w-full px-4 py-2 bg-cyan-500/20 border border-cyan-400 text-cyan-300 font-bold rounded-md backdrop-blur-sm transition-all duration-300 glow-effect-button hover:bg-cyan-400 hover:text-black">UNMUTE AUDIO</button>
+            </div>
+            <div id="hud-object" class="mr-4"></div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const openModalBtn = document.getElementById('open-modal-btn');
+            const urlModal = document.getElementById('url-modal');
+            const cancelBtn = document.getElementById('cancel-btn');
+            const urlForm = document.getElementById('url-form');
+            const youtubeUrlInput = document.getElementById('youtube-url');
+            
+            const initialView = document.getElementById('initial-view');
+            const loadingAnimation = document.getElementById('loading-animation');
+            
+            const backgroundVideo = document.getElementById('background-video');
+            const videoSource = document.getElementById('video-source');
+
+            // NEW: HUD elements
+            const hudOverlay = document.getElementById('hud-overlay');
+            const unmuteBtn = document.getElementById('unmute-btn');
+
+            // --- Modal Controls ---
+            openModalBtn.addEventListener('click', () => urlModal.classList.remove('hidden'));
+            cancelBtn.addEventListener('click', () => urlModal.classList.add('hidden'));
+            urlModal.addEventListener('click', (e) => {
+                if (e.target === urlModal) urlModal.classList.add('hidden');
+            });
+
+            // --- Form Submission and Simulation Logic ---
+            urlForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const videoUrl = youtubeUrlInput.value;
+                if (!videoUrl || !videoUrl.includes('youtube.com') && !videoUrl.includes('youtu.be')) {
+                    alert('Please enter a valid YouTube URL.'); // Using alert here for simplicity as it's an error state
+                    return;
+                }
+                urlModal.classList.add('hidden');
+                initialView.style.opacity = '0';
+                setTimeout(() => {
+                    initialView.classList.add('hidden');
+                    loadingAnimation.classList.remove('hidden');
+                }, 500);
+
+                // --- SIMULATE SERVER PROCESSING ---
+                console.log("Simulating server-side download for URL:", videoUrl);
+                setTimeout(() => {
+                    const newVideoUrl = 'http://localhost:3000/download?url=https://youtu.be/izbydia9jz4?si=aS8e0Hlx_KS8gCZl&quality=1080p'; // 'https://videos.pexels.com/video-files/3214449/3214449-hd_1920_1080_25fps.mp4';
+                    playVideo(newVideoUrl);
+                }, 5000);
+            });
+
+            function playVideo(url) {
+                loadingAnimation.classList.add('hidden');
+                videoSource.setAttribute('src', url);
+                backgroundVideo.load();
+                
+                // Mute by default to allow autoplay in most browsers
+                backgroundVideo.muted = true; 
+                
+                backgroundVideo.play().catch(error => {
+                    console.error("Video autoplay failed:", error);
+                    resetUI();
+                });
+
+                backgroundVideo.style.opacity = '1';
+                
+                // Show the HUD after a short delay
+                setTimeout(() => {
+                    hudOverlay.classList.remove('hidden');
+                    hudOverlay.style.opacity = '1';
+                }, 1500); // 1.5 second delay after video starts fading in
+            }
+            
+            // --- NEW: Unmute Button Logic ---
+            unmuteBtn.addEventListener('click', () => {
+                backgroundVideo.muted = !backgroundVideo.muted;
+                unmuteBtn.textContent = backgroundVideo.muted ? 'UNMUTE AUDIO' : 'MUTE AUDIO';
+            });
+
+            function resetUI() {
+                loadingAnimation.classList.add('hidden');
+                initialView.classList.remove('hidden');
+                initialView.style.opacity = '1';
+                hudOverlay.classList.add('hidden');
+                hudOverlay.style.opacity = '0';
+            }
+        });
+    </script>
+
+</body>
 </html>
