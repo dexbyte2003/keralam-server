@@ -240,7 +240,7 @@
                 // --- SIMULATE SERVER PROCESSING ---
                 console.log("Simulating server-side download for URL:", videoUrl);
                 setTimeout(() => {
-                    const newVideoUrl = 'http://localhost:3000/download?url=https://youtu.be/izbydia9jz4?si=aS8e0Hlx_KS8gCZl&quality=1080p'; // 'https://videos.pexels.com/video-files/3214449/3214449-hd_1920_1080_25fps.mp4';
+                    const newVideoUrl = `http://localhost:3000/download?url=${videoUrl}&quality=1080p`; // 'https://videos.pexels.com/video-files/3214449/3214449-hd_1920_1080_25fps.mp4';
                     playVideo(newVideoUrl);
                 }, 5000);
             });
