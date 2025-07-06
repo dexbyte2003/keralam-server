@@ -37,9 +37,12 @@ Config.Locations = { -- To add more locations copy line 22-58 and paste it below
         },
 
         peds = { -- Peds that will spawn in when attack starts
-            GetHashKey('g_m_y_lost_01'),
-            GetHashKey('g_m_y_lost_02'),
-            GetHashKey('g_m_y_lost_03'),
+            -- GetHashKey('g_m_y_lost_01'),
+            -- GetHashKey('g_m_y_lost_02'),
+            -- GetHashKey('g_m_y_lost_03'),
+            GetHashKey('s_f_y_hooker_01'),
+            GetHashKey('s_f_y_hooker_02'),
+            GetHashKey('s_f_y_hooker_03'),
         },
 
         weapons = { -- Weapons that the peds will use for attack
