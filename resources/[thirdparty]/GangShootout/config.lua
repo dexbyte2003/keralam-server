@@ -61,7 +61,7 @@ Config.Locations = { -- To add more locations copy line 22-58 and paste it below
     },
     ['Muthukk'] = { -- Can be named anything
 
-        start = vector3(-1968.7203, -532.5527, 12.1707, 313.4397), -- Will display the marker to start the shootout
+        start = vector3(-1968.7203, -532.5527, 12.1707), -- Will display the marker to start the shootout
 
         count = 10, -- Amount of peds that will spawn
 
