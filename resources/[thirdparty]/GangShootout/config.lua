@@ -99,4 +99,47 @@ Config.Locations = { -- To add more locations copy line 22-58 and paste it below
             vector3(-2113.2842, -541.0322, 4.3639)
         },
     },
+    ['Muthukk Knife'] = { -- Can be named anything
+
+        start = vector3(-1958.7523, -539.6268, 11.8994), -- Will display the marker to start the shootout
+
+        count = 10, -- Amount of peds that will spawn
+
+        startText = 'Press ~INPUT_CONTEXT~ to start a fight', -- Text that will appear when in the start marker (~INPUT_CONTEXT~ makes the E showup)
+
+        marker = {
+            type = 1,
+            size = 1.7,
+            r = 255, 
+            g = 255,
+            b = 255,
+            a = 255
+        },
+
+        peds = { -- Peds that will spawn in when attack starts
+            -- GetHashKey('g_m_y_lost_01'),
+            -- GetHashKey('g_m_y_lost_02'),
+            -- GetHashKey('g_m_y_lost_03'),
+            GetHashKey('s_f_y_hooker_01'),
+            GetHashKey('s_f_y_hooker_02'),
+            GetHashKey('s_f_y_hooker_03'),
+        },
+
+        weapons = { -- Weapons that the peds will use for attack
+            'weapon_knife',
+            'WEAPON_MACHETE',
+            'WEAPON_BATTLEAXE',
+            'WEAPON_BOTTLE',
+            'WEAPON_SWITCHBLADE',
+        },
+
+        spawnlocs = { -- Where peds will spawn when attack starts
+            vector3(-2043.9061, -481.3794, 11.6224),
+            vector3(-1968.5515, -467.9243, 19.4309),
+            vector3(-2030.4464, -466.3183, 11.6040),
+            vector3(-2064.8508, -450.0746, 11.5642),
+            vector3(-1995.9222, -495.9231, 11.5092),
+            vector3(-2113.2842, -541.0322, 4.3639)
+        },
+    },
 }
