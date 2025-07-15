@@ -37,13 +37,11 @@ body {
   flex-direction: column;
   gap: 20px;
   /* background: rgba(0, 0, 0, 0.4); */
+  background: transparent;
   padding: 10px 20px;
   border-radius: 12px;
   backdrop-filter: blur(10px);
   align-items: end;
-
-  transform: scale(0.7);
-  transform-origin: top right;
 }
 
 .hud-sub-bar-horizontal {
