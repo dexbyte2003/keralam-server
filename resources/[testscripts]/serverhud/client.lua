@@ -8,48 +8,57 @@ local playerData = {}
 
 -- Configuration: Set your server name here
 local config = {}
-config.ServerName = "Keralam"  -- Change this to your server's name
+config.ServerName = "Keralam" -- Change this to your server's name
 
 -- Function to update the NUI display
 local function UpdateUI()
     local displayData = {}
 
-    -- Set player name from character info if available
+    -- Set player name
     if playerData.charinfo then
         displayData.playerName = playerData.charinfo.firstname .. " " .. playerData.charinfo.lastname
     else
         displayData.playerName = "Unknown"
     end
 
-    -- Retrieve the player server ID using the native function
+    -- Player ID
     displayData.playerId = GetPlayerServerId(PlayerId())
 
-    -- Set money info (bank and cash)
+    -- Money
     displayData.bank = (playerData.money and playerData.money.bank) or 0
     displayData.cash = (playerData.money and playerData.money.cash) or 0
 
-    -- Set job and job label
+    -- Job
     displayData.job = (playerData.job and playerData.job.name) or "None"
     displayData.jobLabel = (playerData.job and playerData.job.label) or "None"
     displayData.jobGrade = (playerData.job and playerData.job.grade.name) or "None"
 
-    -- Set server name from config
+    -- Server name
     displayData.serverName = config.ServerName
 
-    -- Send the updated data to the NUI
-    SendNUIMessage({
-        action = "update",
-        data = displayData
-    })
+    -- Fetch total players and server time, then send to NUI
+    QBCore.Functions.TriggerCallback('getPlayerCount', function(playerCount)
+        displayData.totalPlayers = playerCount
+
+        QBCore.Functions.TriggerCallback('getServerTime', function(serverTime)
+            displayData.serverTime = string.format("%02d:%02d:%02d", serverTime.hour, serverTime.min, serverTime.sec)
+
+            -- Send to NUI
+            SendNUIMessage({
+                action = "update",
+                data = displayData
+            })
+        end)
+    end)
 end
 
--- Update the UI when the player is loaded
+-- On player loaded
 RegisterNetEvent('QBCore:Client:OnPlayerLoaded', function(data)
     playerData = data
     UpdateUI()
 end)
 
--- Update money when it changes
+-- On money change
 RegisterNetEvent('QBCore:Player:OnMoneyChange', function(moneyType, amount)
     if playerData.money then
         playerData.money[moneyType] = amount
@@ -57,16 +66,16 @@ RegisterNetEvent('QBCore:Player:OnMoneyChange', function(moneyType, amount)
     UpdateUI()
 end)
 
--- Update job information when it changes
+-- On job update
 RegisterNetEvent('QBCore:Player:OnJobUpdate', function(job)
     playerData.job = job
     UpdateUI()
 end)
 
--- (Optional) A periodic update to ensure UI remains current.
+-- Periodic UI refresh
 Citizen.CreateThread(function()
     while true do
-        Citizen.Wait(1000)
+        Citizen.Wait(10000) -- every 10 seconds
         local newData = QBCore.Functions.GetPlayerData()
         if newData then
             playerData = newData
@@ -74,3 +83,12 @@ Citizen.CreateThread(function()
         end
     end
 end)
+
+-- Command to manually check data
+RegisterCommand("refreshui", function()
+    local newData = QBCore.Functions.GetPlayerData()
+    if newData then
+        playerData = newData
+        UpdateUI()
+    end
+end, false)

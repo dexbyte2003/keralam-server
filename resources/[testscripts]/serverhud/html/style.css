@@ -1,86 +1,117 @@
-/* style.css */
 body {
-    margin: 0;
-    padding: 0;
-    font-family: 'Inter', system-ui, sans-serif;
-    color: white;
-    overflow: hidden;
+  margin: 0;
+  font-family: 'Orbitron', sans-serif;
+  background: transparent;
+  color: white;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Top-right Server Info */
+.server-info {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  text-align: right;
+  z-index: 10;
+}
+
+.server-name {
+  font-size: 18px;
+  font-weight: bold;
+  color: #00ffff;
+}
+
+.discord-link {
+  font-size: 14px;
+  color: #ccc;
+}
+
+/* HUD Bar */
+.hud-bar {
+  position: absolute;
+  top: 70px;
+  right: 2%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  /* background: rgba(0, 0, 0, 0.4); */
+  padding: 10px 20px;
+  border-radius: 12px;
+  backdrop-filter: blur(10px);
+  align-items: end;
+
+  transform: scale(0.7);
+  transform-origin: top right;
+}
+
+.hud-sub-bar-horizontal {
+    display: flex;
+    flex-direction: row;
 } 
 
-.info-hub {
-    position: fixed;
-    top: 15px;
-    right: 15px;
-    /* background: rgba(0, 0, 0, 0.5); */
-    border-radius: 12px;
-    padding: 15px;
-    display: grid;
-    grid-template-columns: repeat(2, auto);
-    gap: 15px;
-}
-
-.info-item {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 10px 15px;
-    background: rgba(0,0,0,0.3);
-    border-radius: 8px;
-    transition: all 0.3s ease;
-    min-width: 160px;
-}
-
-.info-item:hover {
-    background: rgba(255,255,255,0.1);
-    transform: translateY(-2px);
-}
-
-.icon-box {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 32px;
-    height: 32px;
-    border-radius: 6px;
-    background: linear-gradient(45deg, #ff00ff, #ff0066);
-}
-
-.icon-box i {
-    font-size: 1.2rem;
-    color: white;
-}
-
-.content-box {
+.hud-side-bar-vertical {
     display: flex;
     flex-direction: column;
-    width : max-content
 }
 
-.item-label {
-    font-size: 0.75rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    color: rgba(255,255,255,0.8);
+/* HUD Item */
+.hud-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin: 10px;
 }
 
-.item-value {
-    font-size: 1.1rem;
-    font-weight: 700;
-    color: white;
-    text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+.hud-icon {
+  width: 32px;
+  height: 32px;
+  margin-bottom: 5px;
+  position: relative;
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-/* Specific item colors */
-#server .icon-box { background: linear-gradient(45deg, #00f2fe, #00a8ff); }
-#player .icon-box { background: linear-gradient(45deg, #ff9a9e, #ff0066); }
-#cash .icon-box { background: linear-gradient(45deg, #43e97b, #38f9d7); }
-#bank .icon-box { background: linear-gradient(45deg, #ffd700, #ff9100); }
-#job .icon-box { background: linear-gradient(45deg, #8e2de2, #4a00e0); }
+.hud-icon.diamond {
+  transform: rotate(45deg);
+  border: 2px solid red;
+}
 
-.money-row {
-    grid-column: span 2;
-    display: flex;
-    gap: 15px;
-    justify-content: space-between;
+.hud-icon.diamond i {
+  transform: rotate(-45deg);
+  font-size: 14px;
+}
+
+/* Texts */
+.label {
+  font-size: 10px;
+  text-transform: uppercase;
+  opacity: 0.7;
+}
+
+.value {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.cyan {
+  color: #00ffff;
+}
+
+.red {
+  color: #ff4d4d;
+}
+
+/* Separator */
+.separator {
+  width: 2px;
+  height: 40px;
+  background-color: #ff4d4d;
+  opacity: 0.5;
+  margin: 0 5px;
 }

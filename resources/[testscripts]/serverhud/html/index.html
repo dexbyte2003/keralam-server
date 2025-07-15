@@ -1,83 +1,69 @@
-<!-- html/index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Server Info</title>
-    <link rel="stylesheet" href="style.css">
-    <!-- Add this to head section -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <meta charset="UTF-8">
+  <title>HUD Overlay</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<!-- Update your HTML -->
-<!-- Updated HTML -->
-<div class="info-hub">
-    <!-- Server Info -->
-    <div class="info-item" id="server">
-        <div class="icon-box">
-            <i class="fas fa-satellite-dish"></i>
+  <!-- Server Info Top Right -->
+  <div class="server-info">
+    <div class="server-name" id="server-name">KERALAM SERVER</div>
+    <div class="discord-link">
+      <i class="fa-brands fa-discord"></i> discord.gg/xlantis-city
+    </div>
+  </div>
+
+  <!-- Main HUD Bar -->
+  <div class="hud-bar">
+    <div class="hud-sub-bar-horizontal">
+        <div class="hud-item">
+          <div class="hud-icon diamond"><i class="fas fa-id-badge"></i></div>
+          <span class="label">ID</span>
+          <span class="value cyan" id="player-id">454</span>
         </div>
-        <div class="content-box">
-            <span class="item-label">Server</span>
-            <span class="item-value" id="server-name">NextGen RP</span>
+        <div class="hud-item">
+          <div class="hud-icon diamond"><i class="fas fa-users"></i></div>
+          <span class="label">Players</span>
+          <span class="value cyan" id="total-players">387</span>
+        </div>
+        <div class="separator"></div>
+        <div class="hud-item">
+          <div class="hud-icon diamond"><i class="fas fa-briefcase"></i></div>
+          <span class="label">Job</span>
+          <span class="value cyan" id="job-label">K-TEAM</span>
+          <span class="value red" id="job">DEVELOPER</span>
         </div>
     </div>
 
-    <!-- Player Info -->
-    <div class="info-item" id="player">
-        <div class="icon-box">
-            <i class="fas fa-user-astronaut"></i>
+    <div class="hud-sub-bar-vertical">
+        <div class="hud-item">
+          <div class="hud-icon diamond"><i class="fas fa-clock"></i></div>
+          <span class="label">Time</span>
+          <span class="value cyan" id="server-time">21:59</span>
         </div>
-        <div class="content-box">
-            <span class="item-label">Player</span>
-            <span class="item-value"><span id="player-id">ID</span> <span id="player-name">Name</span></span>
+        <div class="hud-item">
+          <div class="hud-icon diamond"><i class="fas fa-wallet"></i></div>
+          <span class="label">Cash</span>
+          <span class="value red" id="cash">$1,020,000</span>
+        </div>
+        <div class="hud-item">
+          <div class="hud-icon diamond"><i class="fas fa-university"></i></div>
+          <span class="label">Bank</span>
+          <span class="value cyan" id="bank">$11,077,652</span>
         </div>
     </div>
+  </div>
 
-    <!-- Money Row -->
-    <!-- div class="money-row" -->
-        <div class="info-item">
-            <div class="icon-box">
-                <i class="fas fa-coins"></i>
-            </div>
-            <div class="content-box">
-                <span class="item-label">Cash</span>
-                <span class="item-value" id="cash">$0</span>
-            </div>
-        </div>
-        
-        <div class="info-item">
-            <div class="icon-box">
-                <i class="fas fa-piggy-bank"></i>
-            </div>
-            <div class="content-box">
-                <span class="item-label">Bank</span>
-                <span class="item-value" id="bank">$0</span>
-            </div>
-        </div>
-    <!-- /div -->
-
-    <!-- Job Info -->
-    <div class="info-item">
-        <div class="icon-box">
-            <i class="fas fa-briefcase"></i>
-        </div>
-        <div class="content-box">
-            <span class="item-label">Job</span>
-            <span class="item-value" id="job">LSPD</span>
-        </div>
-    </div>
-    <!-- Job Info -->
-    <div class="info-item">
-        <div class="icon-box">
-            <i class="fas fa-briefcase"></i>
-        </div>
-        <div class="content-box">
-            <span class="item-label">Role</span>
-            <span class="item-value" id="job-role">Captain</span>
-        </div>
-    </div>
-</div>
-    <script src="script.js"></script>
+  <!-- Font Awesome -->
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 </body>
 </html>

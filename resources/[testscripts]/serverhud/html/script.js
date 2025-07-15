@@ -7,7 +7,11 @@ window.addEventListener('message', function(event) {
         document.getElementById('player-name').innerText = data.data.playerName;
         document.getElementById('cash').innerText =  "$" + data.data.cash;
         document.getElementById('bank').innerText = "$" + data.data.bank;
-        document.getElementById('job').innerText = data.data.jobLabel + "/" + data.data.job;
+        document.getElementById('job-label').innerText = data.data.jobLabel;
+        document.getElementById('job').innerText = data.data.job;
         document.getElementById('job-role').innerText = data.data.jobGrade;
+        document.getElementById("server-time").textContent = data.data.serverTime;
+        document.getElementById("total-players").textContent = data.data.totalPlayers;
+
     }
 });
