@@ -1,7 +1,7 @@
 body {
   margin: 0;
   font-family: 'Orbitron', sans-serif;
-  background: transparent;
+  /* background: transparent; */
   color: white;
   position: relative;
   display: flex;
@@ -37,10 +37,10 @@ body {
   flex-direction: column;
   gap: 20px;
   /* background: rgba(0, 0, 0, 0.4); */
-  background: transparent;
+  /* background: transparent; */
   padding: 10px 20px;
-  border-radius: 12px;
-  backdrop-filter: blur(10px);
+  /* border-radius: 12px;
+  backdrop-filter: blur(10px); */
   align-items: end;
 }
 
