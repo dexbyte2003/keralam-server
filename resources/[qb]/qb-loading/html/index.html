@@ -142,7 +142,7 @@
 <body class="text-gray-200">
 
     <!-- Background Video Element -->
-    <div class="video-overlay"></div>
+    <div class="video-overlay" id="bg-overlay"></div>
     <video id="background-video" loop playsinline>
         <source id="video-source" src="https://videos.pexels.com/video-files/8566494/8566494-hd_1920_1080_25fps.mp4" type="video/mp4">
         Your browser does not support the video tag.
@@ -210,6 +210,7 @@
             
             const backgroundVideo = document.getElementById('background-video');
             const videoSource = document.getElementById('video-source');
+            const bgOverlay = document.getElementById('video-overlay');
 
             // NEW: HUD elements
             const hudOverlay = document.getElementById('hud-overlay');
@@ -247,6 +248,7 @@
 
             function playVideo(url) {
                 loadingAnimation.classList.add('hidden');
+                bgOverlay.classList.add("hidden");
                 videoSource.setAttribute('src', url);
                 backgroundVideo.load();
                 
