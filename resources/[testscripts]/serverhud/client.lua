@@ -52,6 +52,19 @@ local function UpdateUI()
     end)
 end
 
+function getTime()
+    hour = GetClockHours()
+    minute = GetClockMinutes()
+    if hour <= 9 then
+        hour = "0" .. hour
+    end
+    if minute <= 9 then
+        minute = "0" .. minute
+    end
+    return hour .. ":" .. minute
+end
+
+
 -- On player loaded
 RegisterNetEvent('QBCore:Client:OnPlayerLoaded', function(data)
     playerData = data
