@@ -10,6 +10,20 @@ local playerData = {}
 local config = {}
 config.ServerName = "Keralam" -- Change this to your server's name
 
+
+function getTime()
+    hour = GetClockHours()
+    minute = GetClockMinutes()
+    if hour <= 9 then
+        hour = "0" .. hour
+    end
+    if minute <= 9 then
+        minute = "0" .. minute
+    end
+    return hour .. ":" .. minute
+end
+
+
 -- Function to update the NUI display
 local function UpdateUI()
     local displayData = {}
@@ -36,34 +50,10 @@ local function UpdateUI()
     -- Server name
     displayData.serverName = config.ServerName
 
-    -- Fetch total players and server time, then send to NUI
-    QBCore.Functions.TriggerCallback('getPlayerCount', function(playerCount)
-        displayData.totalPlayers = playerCount
+    displayData.serverTime = getTime()
 
-        QBCore.Functions.TriggerCallback('getServerTime', function(serverTime)
-            displayData.serverTime = string.format("%02d:%02d:%02d", serverTime.hour, serverTime.min, serverTime.sec)
-
-            -- Send to NUI
-            SendNUIMessage({
-                action = "update",
-                data = displayData
-            })
-        end)
-    end)
+    displayData.totalPlayers = GetActivePlayers()
 end
-
-function getTime()
-    hour = GetClockHours()
-    minute = GetClockMinutes()
-    if hour <= 9 then
-        hour = "0" .. hour
-    end
-    if minute <= 9 then
-        minute = "0" .. minute
-    end
-    return hour .. ":" .. minute
-end
-
 
 -- On player loaded
 RegisterNetEvent('QBCore:Client:OnPlayerLoaded', function(data)
