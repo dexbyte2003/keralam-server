@@ -10,6 +10,19 @@ local playerData = {}
 local config = {}
 config.ServerName = "Keralam" -- Change this to your server's name
 
+-- Function to get current time in HH:MM format
+local function getTime()
+    local hour = GetClockHours()
+    local minute = GetClockMinutes()
+    if hour <= 9 then
+        hour = "0" .. hour
+    end
+    if minute <= 9 then
+        minute = "0" .. minute
+    end
+    return hour .. ":" .. minute
+end
+
 -- Function to update the NUI display
 local function UpdateUI()
     local displayData = {}
@@ -33,23 +46,18 @@ local function UpdateUI()
     displayData.jobLabel = (playerData.job and playerData.job.label) or "None"
     displayData.jobGrade = (playerData.job and playerData.job.grade.name) or "None"
 
-    -- Server name
+    -- Server name & time
     displayData.serverName = config.ServerName
+    displayData.serverTime = getTime()
 
-    -- Fetch total players and server time, then send to NUI
-    QBCore.Functions.TriggerCallback('getPlayerCount', function(playerCount)
-        displayData.totalPlayers = playerCount
+    -- Total players (as count)
+    displayData.totalPlayers = #GetActivePlayers()
 
-        QBCore.Functions.TriggerCallback('getServerTime', function(serverTime)
-            displayData.serverTime = string.format("%02d:%02d:%02d", serverTime.hour, serverTime.min, serverTime.sec)
-
-            -- Send to NUI
-            SendNUIMessage({
-                action = "update",
-                data = displayData
-            })
-        end)
-    end)
+    -- Send the data to NUI
+    SendNUIMessage({
+        type = "update",
+        data = displayData
+    })
 end
 
 -- On player loaded
@@ -72,10 +80,10 @@ RegisterNetEvent('QBCore:Player:OnJobUpdate', function(job)
     UpdateUI()
 end)
 
--- Periodic UI refresh
+-- Periodic UI refresh (every 10 seconds)
 Citizen.CreateThread(function()
     while true do
-        Citizen.Wait(10000) -- every 10 seconds
+        Citizen.Wait(10000)
         local newData = QBCore.Functions.GetPlayerData()
         if newData then
             playerData = newData
@@ -84,7 +92,7 @@ Citizen.CreateThread(function()
     end
 end)
 
--- Command to manually check data
+-- Command to manually refresh UI
 RegisterCommand("refreshui", function()
     local newData = QBCore.Functions.GetPlayerData()
     if newData then
