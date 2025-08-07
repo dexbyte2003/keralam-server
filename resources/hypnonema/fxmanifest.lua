@@ -12,8 +12,8 @@
 
 -- The url to your webserver
 -- Hint: This is optional! You may want to stay with the default (https://charming-byte.github.io/fivem-hypnonema/)
--- hypnonema_url 'https://charming-byte.github.io/fivem-hypnonema/'
-hypnonema_url 'nui://hypnonema/wwwroot/index.html'
+hypnonema_url 'https://charming-byte.github.io/fivem-hypnonema/'
+-- hypnonema_url 'nui://hypnonema/wwwroot/index.html'
 
 -- If you want to see a custom splash screen / poster
 hypnonema_poster_url 'https://i.imgur.com/dPaIjEW.jpg'
@@ -46,7 +46,7 @@ files {
     'client/html/index.html',
     'client/html/static/js/main.js',
     'client/html/static/css/main.css',
-    'wwwroot/index.html'
+    -- 'wwwroot/index.html'
 }
 
 author 'simpled-dev'
