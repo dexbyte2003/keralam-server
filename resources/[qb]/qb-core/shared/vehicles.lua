@@ -772,7 +772,8 @@ local Vehicles = {
     { model = 'cybertruckv',         name = 'Tesla Cybertruck',  brand = 'Tesla',   price = 900000000,  category = 'super',    type = 'automobile',       shop = 'luxury', tags = ['tesla', 'cartruck'] },
     { model = '3erg20',         name = 'BMW',  brand = 'BMW',   price = 900000000,  category = 'super',    type = 'automobile',       shop = 'luxury', tags = ['bmw', 'custom'] },
     { model = 'shelby6x6bronco',         name = 'Bronco 6x6',  brand = 'Ford',   price = 900000000,  category = 'offroad',    type = 'automobile',       shop = 'luxury', tags = ['bronco', 'custom'] },
-
+    { model = 'waldp',         name = 'Fortuner 2023',  brand = 'Toyota',   price = 900000000,  category = 'addon',    type = 'automobile',       shop = 'luxury', tags = ['fortuner', 'custom'] },
+    { model = 'adlc500',         name = 'Lexus LC500',  brand = 'Lexus',   price = 900000000,  category = 'addon',    type = 'automobile',       shop = 'luxury', tags = ['lc500', 'custom'] },
 
 }
 
