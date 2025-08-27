@@ -765,15 +765,15 @@ local Vehicles = {
     { model = 'formula',         name = 'PR4',                           brand = 'Progen',          price = 100000,  category = 'openwheel',      type = 'automobile', shop = 'none' },
 
     --- Custom Vehicles
-    { model = 'jdbullet2.0',         name = 'Royal Enfield Bullet 350',  brand = 'Royal Enfield',   price = 100000,  category = 'motorcycles',    type = 'bike',       shop = 'pdm', tags = ['bullet', 'royalenfield'] },
+    { model = 'jdbullet2.0',         name = 'Royal Enfield Bullet 350',  brand = 'Royal Enfield',   price = 100000,  category = 'motorcycles',    type = 'bike',       shop = 'pdm', tags = {'bullet', 'royalenfield'} },
     { model = 'defender',         name = 'Land Rover Defender',  brand = 'Land Rover',   price = 100000,  category = 'offroad',    type = 'automobile',       shop = 'pdm' },
-    { model = 'oycdefender',         name = 'Land Rover Defender 2',  brand = 'Land Rover',   price = 100000,  category = 'offroad',    type = 'automobile',       shop = 'pdm', tags = ['defender'] },
-    { model = 'venatusc',         name = 'LAMBORGHINI URUS',  brand = 'LAMBORGHINI',   price = 900000000,  category = 'super',    type = 'automobile',       shop = 'luxury', tags = ['lamborgini', 'lamborghini', 'lambo'] },
-    { model = 'cybertruckv',         name = 'Tesla Cybertruck',  brand = 'Tesla',   price = 900000000,  category = 'super',    type = 'automobile',       shop = 'luxury', tags = ['tesla', 'cartruck'] },
-    { model = '3erg20',         name = 'BMW',  brand = 'BMW',   price = 900000000,  category = 'super',    type = 'automobile',       shop = 'luxury', tags = ['bmw', 'custom'] },
-    { model = 'shelby6x6bronco',         name = 'Bronco 6x6',  brand = 'Ford',   price = 900000000,  category = 'offroad',    type = 'automobile',       shop = 'luxury', tags = ['bronco', 'custom'] },
-    { model = 'waldp',         name = 'Fortuner 2023',  brand = 'Toyota',   price = 900000000,  category = 'addon',    type = 'automobile',       shop = 'luxury', tags = ['fortuner', 'custom'] },
-    { model = 'adlc500',         name = 'Lexus LC500',  brand = 'Lexus',   price = 900000000,  category = 'addon',    type = 'automobile',       shop = 'luxury', tags = ['lc500', 'custom'] },
+    { model = 'oycdefender',         name = 'Land Rover Defender 2',  brand = 'Land Rover',   price = 100000,  category = 'offroad',    type = 'automobile',       shop = 'pdm', tags = {'defender'} },
+    { model = 'venatusc',         name = 'LAMBORGHINI URUS',  brand = 'LAMBORGHINI',   price = 900000000,  category = 'super',    type = 'automobile',       shop = 'luxury', tags = {'lamborgini', 'lamborghini', 'lambo'} },
+    { model = 'cybertruckv',         name = 'Tesla Cybertruck',  brand = 'Tesla',   price = 900000000,  category = 'super',    type = 'automobile',       shop = 'luxury', tags = {'tesla', 'cartruck'} },
+    { model = '3erg20',         name = 'BMW',  brand = 'BMW',   price = 900000000,  category = 'super',    type = 'automobile',       shop = 'luxury', tags = {'bmw', 'custom'} },
+    { model = 'shelby6x6bronco',         name = 'Bronco 6x6',  brand = 'Ford',   price = 900000000,  category = 'offroad',    type = 'automobile',       shop = 'luxury', tags = {'bronco', 'custom'} },
+    { model = 'waldp',         name = 'Fortuner 2023',  brand = 'Toyota',   price = 900000000,  category = 'addon',    type = 'automobile',       shop = 'luxury', tags = {'fortuner', 'custom'} },
+    { model = 'adlc500',         name = 'Lexus LC500',  brand = 'Lexus',   price = 900000000,  category = 'addon',    type = 'automobile',       shop = 'luxury', tags = {'lc500', 'custom'} },
 
 }
 
@@ -788,5 +788,6 @@ for i = 1, #Vehicles do
         hash = joaat(Vehicles[i].model),
         type = Vehicles[i].type,
         shop = Vehicles[i].shop
+        tags = Vehicles[i].tags
     }
 end
