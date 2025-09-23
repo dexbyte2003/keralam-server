@@ -1,0 +1,25 @@
+body {
+  margin: 0;
+  background: transparent;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+#kill-notify {
+  position: absolute;
+  left: 50%;
+  bottom: 8vh;
+  transform: translateX(-50%);
+  opacity: 0;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+#kill-notify.show {
+  opacity: 1;
+  transform: translateX(-50%) scale(1.2);
+}
+
+.skull {
+  font-size: 72px;
+  text-shadow: 0 0 15px black;
+}
