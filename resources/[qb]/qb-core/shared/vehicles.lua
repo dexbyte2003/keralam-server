@@ -774,6 +774,8 @@ local Vehicles = {
     { model = 'shelby6x6bronco',         name = 'Bronco 6x6',  brand = 'Ford',   price = 900000000,  category = 'offroad',    type = 'automobile',       shop = 'luxury', tags = {'bronco', 'custom'} },
     { model = 'waldp',         name = 'Fortuner 2023',  brand = 'Toyota',   price = 900000000,  category = 'addon',    type = 'automobile',       shop = 'luxury', tags = {'fortuner', 'custom'} },
     { model = 'adlc500',         name = 'Lexus LC500',  brand = 'Lexus',   price = 900000000,  category = 'addon',    type = 'automobile',       shop = 'luxury', tags = {'lc500', 'custom'} },
+    { model = 'alcagil25',         name = 'Zenvo Aurora Agil',  brand = 'Zenvo',   price = 900000000,  category = 'addon',    type = 'automobile',       shop = 'luxury', tags = {'zenvo', 'custom'} },
+
 
 }
 
