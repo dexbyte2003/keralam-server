@@ -3,6 +3,11 @@ Config = Config or {}
 Config.CustomPeds = {
     --["example"] = 'https://i.imgur.com/8fJZLXj_d.webp',
     ["Spiderman_Raimi_PS4"] = 'https://media.discordapp.net/attachments/1420390321770070097/1420390365101297675/Screenshot_2025-09-24_181229.png?ex=68d5391c&is=68d3e79c&hm=0ea1640ea88da0b330e641e94dd79332fb4cfd0452434805dfef7a8bcbe63596&=&format=webp&quality=lossless&width=716&height=930',
+    ["thor"] = 'https://media.discordapp.net/attachments/1420390321770070097/1420783769488457910/5bda79-20160916015845_1.png?ex=68d6a77f&is=68d555ff&hm=23ca0ade0e49bd817b28aabe8c8ac25b969439c43230852e2d76e1a6008f4a88&=&format=webp&quality=lossless&width=304&height=438',
+    ["loki_tr"] = 'https://cdn.discordapp.com/attachments/1420390321770070097/1420782652910473216/3cea72-loki_2.png?ex=68d6a675&is=68d554f5&hm=956f6057d9318a7e485a63ebf59dced2d258b9bd89fdfe41ab8926410189dc4e&',
+    ["thanos_gotg"] = 'https://cdn.discordapp.com/attachments/1420390321770070097/1420783442546921623/7c4a7c-t51.png?ex=68d6a731&is=68d555b1&hm=5a317fafee40772deeca1e8445dfde626e7d3e9d35c35277b522e2aea0cd7212&',
+    ["ThanosIW_big"] =  'https://cdn.discordapp.com/attachments/1420390321770070097/1420783442546921623/7c4a7c-t51.png?ex=68d6a731&is=68d555b1&hm=5a317fafee40772deeca1e8445dfde626e7d3e9d35c35277b522e2aea0cd7212&',
+    ['hulk'] = 'https://cdn.discordapp.com/attachments/1420390321770070097/1420783104422973471/a05c5d-Untitled.png?ex=68d6a6e0&is=68d55560&hm=04a77008f11902adc0485324200ccb9a0f811dedb891e7afcfb4cbc181c126c3&',
 }
 
 Config.VanillaPeds = {
