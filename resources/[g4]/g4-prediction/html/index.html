@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>G4 Prediction System</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Premium Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="prediction-app" class="app-container" style="display: none;">
+        <!-- Glassmorphic Dashboard Window -->
+        <div class="dashboard-window">
+            
+            <!-- Sidebar Navigation -->
+            <aside class="sidebar">
+                <div class="brand">
+                    <div class="logo-icon">
+                        <i class="fa-solid fa-chart-line"></i>
+                    </div>
+                    <div class="brand-text">
+                        <h2>G4 PREDICTIONS</h2>
+                        <span>Decentralized Polls</span>
+                    </div>
+                </div>
+                
+                <nav class="nav-menu">
+                    <button class="nav-btn active" data-tab="active-predictions">
+                        <i class="fa-solid fa-square-poll-vertical"></i>
+                        <span>Active Bets</span>
+                        <span class="badge" id="active-badge">0</span>
+                    </button>
+                    <button class="nav-btn" data-tab="history-predictions">
+                        <i class="fa-solid fa-clock-rotate-left"></i>
+                        <span>History</span>
+                    </button>
+                    <button class="nav-btn admin-only" data-tab="admin-panel" style="display: none;">
+                        <i class="fa-solid fa-sliders"></i>
+                        <span>Admin Panel</span>
+                    </button>
+                </nav>
+                
+                <div class="sidebar-footer">
+                    <button id="close-btn" class="close-action-btn">
+                        <i class="fa-solid fa-circle-xmark"></i>
+                        <span>Close Menu</span>
+                    </button>
+                </div>
+            </aside>
+
+            <!-- Main Content Area -->
+            <main class="content-area">
+                <!-- Notifications Overlay (Standard UI feedbacks) -->
+                <div id="toast-container"></div>
+
+                <!-- TAB 1: ACTIVE PREDICTIONS -->
+                <section id="active-predictions" class="tab-content active">
+                    <header class="tab-header">
+                        <div>
+                            <h1>Active Predictions & Polls</h1>
+                            <p>Cast your votes, back your choice, and earn dividends from the betting pool.</p>
+                        </div>
+                        <div class="header-stats">
+                            <div class="stat-badge">
+                                <i class="fa-solid fa-wallet"></i>
+                                <span>Currency: <strong id="config-currency">Cash</strong></span>
+                            </div>
+                        </div>
+                    </header>
+                    
+                    <div class="prediction-grid" id="active-predictions-list">
+                        <!-- Dynamic active prediction cards inserted here -->
+                        <div class="empty-state">
+                            <i class="fa-solid fa-circle-question"></i>
+                            <h3>No Active Predictions</h3>
+                            <p>There are no active prediction events or polls right now. Check back later!</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- TAB 2: HISTORY -->
+                <section id="history-predictions" class="tab-content">
+                    <header class="tab-header">
+                        <div>
+                            <h1>Prediction History</h1>
+                            <p>Review past predictions, outcomes, and resolved payout dividends.</p>
+                        </div>
+                    </header>
+                    
+                    <div class="prediction-grid" id="history-predictions-list">
+                        <!-- Dynamic history cards inserted here -->
+                        <div class="empty-state">
+                            <i class="fa-solid fa-box-open"></i>
+                            <h3>History is Empty</h3>
+                            <p>No predictions have been archived yet.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- TAB 3: ADMIN PANEL (MANAGEMENT) -->
+                <section id="admin-panel" class="tab-content">
+                    <header class="tab-header">
+                        <div>
+                            <h1>Control Center</h1>
+                            <p>Configure predictions, manage ongoing events, and resolve payouts.</p>
+                        </div>
+                    </header>
+
+                    <div class="admin-grid">
+                        <!-- Create Prediction Card -->
+                        <div class="admin-card create-card">
+                            <div class="card-header-accent">
+                                <h2><i class="fa-solid fa-circle-plus"></i> Create New Event</h2>
+                            </div>
+                            
+                            <form id="create-prediction-form">
+                                <div class="form-group">
+                                    <label for="pred-question">Question / Subject</label>
+                                    <input type="text" id="pred-question" placeholder="e.g. Will the PD defend the Bank Robbery?" required autocomplete="off">
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Event Mode</label>
+                                    <div class="type-pill-selector">
+                                        <button type="button" class="type-pill-btn active" data-type="prediction">
+                                            <i class="fa-solid fa-dollar-sign"></i> Prediction Pool
+                                        </button>
+                                        <button type="button" class="type-pill-btn" data-type="poll">
+                                            <i class="fa-solid fa-square-poll-vertical"></i> Standard Poll
+                                        </button>
+                                        <input type="hidden" id="pred-type" value="prediction">
+                                    </div>
+                                    <span class="field-hint">Prediction pools allow players to bet money. Polls are standard voting.</span>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Privacy & Stats</label>
+                                    <div class="checkbox-container">
+                                        <input type="checkbox" id="pred-show-stats" checked>
+                                        <label for="pred-show-stats" class="checkbox-label">Show Live Stats to Voters</label>
+                                    </div>
+                                    <span class="field-hint" style="margin-bottom: 12px;">If disabled, voters cannot see current percentages or bet pools until they vote.</span>
+                                    
+                                    <div class="checkbox-container">
+                                        <input type="checkbox" id="pred-hide-until-ended">
+                                        <label for="pred-hide-until-ended" class="checkbox-label">Keep Stats Hidden Until Ended</label>
+                                    </div>
+                                    <span class="field-hint">If enabled, stats remain hidden for everyone (even after voting) until results are marked.</span>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Options Configuration</label>
+                                    <div id="options-inputs-container">
+                                        <div class="option-input-row">
+                                            <div class="option-number">1</div>
+                                            <input type="text" class="option-input" placeholder="Option 1" required autocomplete="off">
+                                            <button type="button" class="remove-option-btn" disabled><i class="fa-solid fa-trash-can"></i></button>
+                                        </div>
+                                        <div class="option-input-row">
+                                            <div class="option-number">2</div>
+                                            <input type="text" class="option-input" placeholder="Option 2" required autocomplete="off">
+                                            <button type="button" class="remove-option-btn" disabled><i class="fa-solid fa-trash-can"></i></button>
+                                        </div>
+                                    </div>
+                                    <button type="button" id="add-option-field-btn" class="secondary-btn btn-sm">
+                                        <i class="fa-solid fa-plus"></i> Add Alternative Option
+                                    </button>
+                                </div>
+
+                                <button type="submit" class="primary-btn submit-btn">
+                                    <i class="fa-solid fa-paper-plane"></i> Launch Event
+                                </button>
+                            </form>
+                        </div>
+
+                        <!-- Active Admin Actions Card -->
+                        <div class="admin-card management-card">
+                            <div class="card-header-accent">
+                                <h2><i class="fa-solid fa-list-check"></i> Active Management</h2>
+                            </div>
+                            <div class="admin-manage-list" id="admin-active-list">
+                                <!-- Dynamic management cards will load here -->
+                                <div class="empty-state">
+                                    <i class="fa-solid fa-face-smile"></i>
+                                    <h3>No events to manage</h3>
+                                    <p>Launch an event to start controlling it here.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </main>
+        </div>
+    </div>
+    <!-- In-UI Confirmation Modal -->
+    <div id="confirm-modal" class="modal-overlay" style="display: none;">
+        <div class="modal-window">
+            <div class="modal-header">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+                <h3>Confirm Action</h3>
+            </div>
+            <div class="modal-body">
+                <p id="confirm-message">Are you sure you want to proceed?</p>
+            </div>
+            <div class="modal-footer">
+                <button id="confirm-cancel-btn" class="secondary-btn">Cancel</button>
+                <button id="confirm-ok-btn" class="primary-btn">Confirm</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

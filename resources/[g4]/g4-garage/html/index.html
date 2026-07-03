@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Garage UI</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="container" class="hidden">
+        <!-- Main Garage View -->
+        <div id="garage-view" class="view active-view">
+            <header>
+                <div class="logo-section">
+                    <h1 id="garage-title">CITIZEN GARAGE</h1>
+                    <span class="sub-title">DYNAMIC VEHICLE SYSTEM</span>
+                </div>
+                <button class="close-btn" onclick="closeUI()">✕</button>
+            </header>
+
+            <main>
+                <!-- Vehicle List Section -->
+                <section class="list-section">
+                    <div class="search-bar">
+                        <input type="text" id="veh-search" placeholder="Search vehicles..." onkeyup="searchVehicles()">
+                    </div>
+                    <div class="vehicle-list" id="vehicle-list-container">
+                        <!-- Loaded dynamically -->
+                    </div>
+                </section>
+
+                <!-- Vehicle Details/Operations Section -->
+                <section class="detail-section" id="detail-section">
+                    <div class="select-prompt" id="select-prompt">
+                        <p>SELECT A VEHICLE TO MANAGE</p>
+                    </div>
+                    <div class="details-content hidden" id="details-content">
+                        <h2 id="detail-name">Banshee</h2>
+                        <div class="plate-badge" id="detail-plate">PLATE: 12ABC34</div>
+                        
+                        <div class="stats-container">
+                            <div class="stat-box">
+                                <span class="stat-label">FUEL</span>
+                                <div class="progress-bar"><div class="progress-inner" id="fuel-bar" style="width: 80%;"></div></div>
+                                <span class="stat-val" id="fuel-val">80%</span>
+                            </div>
+                            <div class="stat-box">
+                                <span class="stat-label">ENGINE</span>
+                                <div class="progress-bar"><div class="progress-inner" id="engine-bar" style="width: 90%;"></div></div>
+                                <span class="stat-val" id="engine-val">90%</span>
+                            </div>
+                            <div class="stat-box">
+                                <span class="stat-label">BODY</span>
+                                <div class="progress-bar"><div class="progress-inner" id="body-bar" style="width: 95%;"></div></div>
+                                <span class="stat-val" id="body-val">95%</span>
+                            </div>
+                        </div>
+
+                        <div class="actions-container">
+                            <button class="action-btn spawn-btn" onclick="spawnSelected()">SPAWN VEHICLE</button>
+                            <button class="action-btn track-btn hidden" onclick="trackSelected()" style="background: linear-gradient(135deg, #10ac84, #00d2ff); margin-top: 8px;">TRACK VEHICLE</button>
+                            <button class="action-btn reclaim-btn hidden" onclick="reclaimSelected()" style="background: linear-gradient(135deg, #f39c12, #d35400); margin-top: 8px;">RECLAIM VEHICLE TO GARAGE</button>
+                            
+                            <div class="admin-only-features hidden" id="garage-view-admin-features" style="border-top: 1px solid rgba(255,255,255,0.05); padding-top: 15px; margin-top: 10px;">
+                                <h3 style="font-size: 12px; font-weight: 700; color: rgba(255,255,255,0.4); letter-spacing: 1px; margin-bottom: 10px;">ADMIN OPERATIONS</h3>
+                                <div class="admin-input-row" style="margin-bottom: 10px;">
+                                    <button class="btn" onclick="adminManageSelected()" style="background-color: #3a7bd5; color: white;">Manage Vehicle</button>
+                                    <button class="btn btn-danger" onclick="adminDeleteSelected()">Delete Vehicle</button>
+                                </div>
+                                <div class="add-vehicle-section" style="border-top: 1px solid rgba(255,255,255,0.05); padding-top: 10px; margin-top: 10px;">
+                                    <h3 style="font-size: 12px; font-weight: 700; color: rgba(255,255,255,0.4); letter-spacing: 1px; margin-bottom: 10px;">ADD VEHICLE TO THIS PLAYER</h3>
+                                    <div class="share-input-group" style="gap: 5px; flex-wrap: wrap;">
+                                        <input type="text" id="admin-add-model" placeholder="Model (e.g. banshee)" style="flex: 1; min-width: 120px; padding: 12px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; color: white; outline: none;">
+                                        <input type="text" id="admin-add-plate" placeholder="Plate (Optional)" style="flex: 1; min-width: 120px; padding: 12px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; color: white; outline: none;">
+                                        <button class="btn" onclick="adminAddVehicleToThis()" style="background-color: #10ac84; color: white;">ADD</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="citizen-only-features" id="citizen-only-features">
+                                <div class="sharing-section">
+                                    <h3>VEHICLE SHARING</h3>
+                                    <div class="share-input-group">
+                                        <input type="number" id="share-id" placeholder="Enter Player ID">
+                                        <button class="btn share-btn" onclick="shareSelected()">SHARE</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </main>
+        </div>
+
+        <!-- Admin Management View -->
+        <div id="admin-view" class="view">
+            <header>
+                <div class="logo-section">
+                    <h1>ADMIN CONTROL</h1>
+                    <span class="sub-title">GARAGE CREATOR & MANAGER</span>
+                </div>
+                <button class="close-btn" onclick="closeUI()">✕</button>
+            </header>
+
+            <main class="admin-main">
+                <!-- Admin Tabs -->
+                <nav class="admin-tabs">
+                    <button class="tab-btn active-tab" onclick="switchAdminTab('creator')">Garage Creator</button>
+                    <button class="tab-btn" onclick="switchAdminTab('list')">Active Garages</button>
+                    <button class="tab-btn" onclick="switchAdminTab('vehicles')">Citizen Vehicles</button>
+                    <button class="tab-btn" onclick="switchAdminTab('addvehicle')">Add Vehicle</button>
+                </nav>
+
+                <!-- Admin Tab Contents -->
+                <div class="tab-content" id="admin-creator-tab">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Garage Name (Unique ID)</label>
+                            <input type="text" id="g-name" placeholder="pd_garage">
+                        </div>
+                        <div class="form-group">
+                            <label>Garage Label (Display Name)</label>
+                            <input type="text" id="g-label" placeholder="Mission Row Garage">
+                        </div>
+                        <div class="form-group">
+                            <label>Garage Type</label>
+                            <select id="g-type" onchange="toggleJobGangInput()">
+                                <option value="citizen">Citizen</option>
+                                <option value="job">Job</option>
+                                <option value="gang">Gang</option>
+                            </select>
+                        </div>
+                        <div class="form-group hidden" id="job-gang-group">
+                            <label id="job-gang-label">Job/Gang Name</label>
+                            <input type="text" id="g-jobgang" placeholder="police">
+                        </div>
+                        <div class="form-group hidden" id="grade-group">
+                            <label>Minimum Grade Level</label>
+                            <input type="number" id="g-grade" value="0">
+                        </div>
+                    </div>
+
+                    <div class="coords-setup">
+                        <h3>POSITION SETUP (Stand at the marker location, then click)</h3>
+                        <div class="coords-buttons">
+                            <button class="btn coords-btn" onclick="setCoords('menu')">Set Menu Marker</button>
+                            <button class="btn coords-btn" onclick="setCoords('spawn')">Set Spawn Point</button>
+                            <button class="btn coords-btn" onclick="setCoords('delete')">Set Delete Zone</button>
+                        </div>
+                    </div>
+
+                    <button class="action-btn create-garage-btn" onclick="createGarage()">CREATE GARAGE</button>
+                </div>
+
+                <div class="tab-content hidden" id="admin-list-tab">
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Label</th>
+                                    <th>Type</th>
+                                    <th>Configuration</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="admin-garages-table">
+                                <!-- Populated dynamically -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="tab-content hidden" id="admin-vehicles-tab">
+                    <div class="vehicles-admin-controls">
+                        <div class="search-bar">
+                            <input type="text" id="admin-veh-search" placeholder="Search plates, citizenIDs, models..." onkeyup="searchAdminVehicles()">
+                        </div>
+
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Plate</th>
+                                        <th>CitizenID</th>
+                                        <th>Model</th>
+                                        <th>State</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="admin-vehicles-table">
+                                    <!-- Populated dynamically -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content hidden" id="admin-addvehicle-tab">
+                    <div class="add-vehicle-panel" style="margin-top: 0; background: transparent; border: none; padding: 0;">
+                        <h3>ADD VEHICLE TO PLAYER</h3>
+                        <div class="form-grid" style="margin-bottom: 20px;">
+                            <div class="form-group">
+                                <label>Identifier Type</label>
+                                <select id="av-ident-type" onchange="toggleAddVehicleType()">
+                                    <option value="citizenid">Citizen ID</option>
+                                    <option value="playerid">Online Player ID</option>
+                                </select>
+                            </div>
+                            <div class="form-group" id="av-citizenid-group">
+                                <label>Player Citizen ID</label>
+                                <input type="text" id="av-citizenid" placeholder="e.g. QWE12345">
+                            </div>
+                            <div class="form-group hidden" id="av-playerid-group">
+                                <label>Online Player ID</label>
+                                <input type="number" id="av-playerid" placeholder="e.g. 1">
+                            </div>
+                            <div class="form-group">
+                                <label>Model Name</label>
+                                <input type="text" id="av-model" placeholder="e.g. banshee">
+                            </div>
+                            <div class="form-group">
+                                <label>Plate (Optional)</label>
+                                <input type="text" id="av-plate" placeholder="e.g. 12ABC34">
+                            </div>
+                        </div>
+                        <button class="action-btn" onclick="adminAddVehicle()" style="background: linear-gradient(135deg, #10ac84, #00d2ff); color: white; width: 100%;">Add Vehicle</button>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Edit Vehicle State Modal -->
+    <div id="edit-modal" class="modal hidden">
+        <div class="modal-content">
+            <h3>Edit Vehicle Details</h3>
+            <div class="form-group">
+                <label>Plate</label>
+                <input type="text" id="edit-plate">
+            </div>
+            <div class="form-group">
+                <label>State</label>
+                <select id="edit-state">
+                    <option value="1">In Garage</option>
+                    <option value="0">Out on Road</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Fuel Level (%)</label>
+                <input type="number" id="edit-fuel" min="0" max="100">
+            </div>
+            <div class="modal-buttons">
+                <button class="btn" onclick="closeEditModal()">Cancel</button>
+                <button class="btn save-btn" onclick="saveVehicleEdits()">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Configure Community Garage Vehicles Modal -->
+    <div id="comm-veh-modal" class="modal hidden">
+        <div class="modal-content" style="width: 600px; max-height: 80vh; overflow-y: auto;">
+            <h3 id="comm-modal-title">Configure Community Vehicles</h3>
+            <div class="add-comm-veh-form" style="border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 15px; margin-bottom: 15px;">
+                <h4>Add New Vehicle to Fleet</h4>
+                <div class="form-grid" style="grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px; margin-bottom: 10px;">
+                    <div class="form-group">
+                        <label>Model Name</label>
+                        <input type="text" id="cv-model" placeholder="police">
+                    </div>
+                    <div class="form-group">
+                        <label>Label</label>
+                        <input type="text" id="cv-label" placeholder="LSPD Interceptor">
+                    </div>
+                    <div class="form-group">
+                        <label>Min Rank/Grade</label>
+                        <input type="number" id="cv-grade" value="0">
+                    </div>
+                    <div class="form-group">
+                        <label>Plate Generation</label>
+                        <select id="cv-platetype" onchange="toggleCommunityPlateInput()">
+                            <option value="static">Static (COMM + ID)</option>
+                            <option value="custom">Custom Static Plate</option>
+                            <option value="random">Randomized</option>
+                        </select>
+                    </div>
+                    <div class="form-group hidden" id="cv-customplate-group">
+                        <label>Custom Static Plate</label>
+                        <input type="text" id="cv-customplate" placeholder="LSPD1">
+                    </div>
+                </div>
+                <button class="btn save-btn" onclick="addCommunityVehicle()" style="width: 100%;">Add to Fleet</button>
+            </div>
+            
+            <div class="comm-fleet-list">
+                <h4>Existing Fleet Vehicles</h4>
+                <div class="table-container" style="max-height: 200px;">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Model</th>
+                                <th>Label</th>
+                                <th>Min Rank</th>
+                                <th>Plate Type</th>
+                                <th>Custom Plate</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="comm-fleet-table">
+                            <!-- Populated dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <div class="modal-buttons" style="margin-top: 15px;">
+                <button class="btn" onclick="closeCommVehModal()">Close</button>
+            </div>
+        </div>
+    </div>
+    <!-- Edit Community Vehicle Modal -->
+    <div id="edit-comm-veh-modal" class="modal hidden">
+        <div class="modal-content">
+            <h3>Edit Fleet Vehicle</h3>
+            <div class="form-group">
+                <label>Model Name</label>
+                <input type="text" id="edit-cv-model" readonly>
+            </div>
+            <div class="form-group">
+                <label>Label</label>
+                <input type="text" id="edit-cv-label">
+            </div>
+            <div class="form-group">
+                <label>Min Rank/Grade</label>
+                <input type="number" id="edit-cv-grade">
+            </div>
+            <div class="form-group">
+                <label>Plate Generation</label>
+                <select id="edit-cv-platetype" onchange="toggleEditCommunityPlateInput()">
+                    <option value="static">Static (COMM + ID)</option>
+                    <option value="custom">Custom Static Plate</option>
+                    <option value="random">Randomized</option>
+                </select>
+            </div>
+            <div class="form-group hidden" id="edit-cv-customplate-group">
+                <label>Custom Static Plate</label>
+                <input type="text" id="edit-cv-customplate">
+            </div>
+            <div class="modal-buttons">
+                <button class="btn" onclick="closeEditCommVehModal()">Cancel</button>
+                <button class="btn save-btn" onclick="saveCommunityVehicleEdits()">Save</button>
+            </div>
+        </div>
+    </div>
+    <!-- Confirm Add Vehicle Modal -->
+    <div id="confirm-modal" class="modal hidden">
+        <div class="modal-content">
+            <h3>Confirm Vehicle Addition</h3>
+            <p id="confirm-msg" style="font-size: 14px; color: rgba(255,255,255,0.85); line-height: 1.5;"></p>
+            <div class="modal-buttons">
+                <button class="btn" onclick="closeConfirmModal()">Cancel</button>
+                <button class="btn save-btn" onclick="confirmAddVehicle()">Confirm</button>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
