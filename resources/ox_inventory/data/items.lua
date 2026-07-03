@@ -546,5 +546,27 @@ return {
   		image = "sambharam.png",
   	}
   },
+  ['health-portion'] = {
+    	label = 'Health Portion',
+    	weight = 10,
+    	stack = true,
+    	close = true,
+    	description = 'A portion to restore health.',
+    	client = {
+    	    image = 'health-portion.png',
+	    event = 'g4-healings:client:useHealthPortion'
+    	}
+	},
+	['armour-portion'] = {
+    	label = 'Armour Portion',
+    	weight = 10,
+    	stack = true,
+    	close = true,
+    	description = 'A portion to restore armour.',
+    	client = {
+    	    image = 'armour-portion.png',
+	    event = 'g4-healings:client:useArmourPortion'
+    	}
+	},
 	
 }
