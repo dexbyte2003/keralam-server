@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>NPC Spawner</title>
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="style.css" />
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+</head>
+
+<body>
+    <!-- Root Wrapper -->
+    <div id="app" class="hidden">
+
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <h1>NPC Spawner</h1>
+            <nav>
+                <button class="nav-btn active" data-tab="spawn">Spawn</button>
+                <button class="nav-btn" data-tab="appearance">Appearance</button>
+                <button class="nav-btn" data-tab="behavior">Behavior</button>
+                <button class="nav-btn" data-tab="combat">Combat</button>
+                <button class="nav-btn" data-tab="advanced">Advanced</button>
+            </nav>
+        </aside>
+
+        <!-- Main Panel -->
+        <main class="content">
+
+            <!-- Header -->
+            <header class="topbar">
+                <span class="status">Standalone NPC Spawner</span>
+                <button id="closeBtn">✕</button>
+            </header>
+
+            <!-- Tabs -->
+            <section class="tabs">
+
+                <!-- SPAWN TAB -->
+                <div class="tab active" id="tab-spawn">
+                    <h2>Spawn NPC</h2>
+
+                    <div class="grid">
+                        <div class="card">
+                            <label>Ped Model</label>
+                            <input id="pedModel" type="text" placeholder="mp_m_freemode_01" />
+                        </div>
+
+                        <div class="card">
+                            <label>Count</label>
+                            <input id="spawnCount" type="number" min="1" max="20" value="1" />
+                        </div>
+
+                        <div class="card">
+                            <label>Formation</label>
+                            <select id="formation">
+                                <option value="single">Single</option>
+                                <option value="line">Line</option>
+                                <option value="circle">Circle</option>
+                                <option value="grid">Grid</option>
+                            </select>
+                        </div>
+
+                        <div class="card">
+                            <label>Random Radius</label>
+                            <input id="radius" type="range" min="0" max="25" value="0" />
+                        </div>
+                    </div>
+
+                    <button id="spawnBtn" class="primary">Spawn NPC</button>
+                </div>
+
+                <!-- APPEARANCE TAB -->
+                <div class="tab" id="tab-appearance">
+                    <h2>Appearance</h2>
+                    <p>Outfit and visibility options (next file)</p>
+                </div>
+
+                <!-- BEHAVIOR TAB -->
+                <div class="tab" id="tab-behavior">
+                    <h2>Behavior</h2>
+                    <p>AI behavior options (next file)</p>
+                </div>
+
+                <!-- COMBAT TAB -->
+                <div class="tab" id="tab-combat">
+                    <h2>Combat</h2>
+
+                    <div class="grid">
+                        <div class="card">
+                            <label>
+                                <input type="checkbox" id="combatEnabled" />
+                                Enable Combat
+                            </label>
+                        </div>
+
+                        <div class="card">
+                            <label>Weapon Category</label>
+                            <select id="weaponCategory">
+                                <option value="pistol">Pistols</option>
+                                <option value="smg">SMGs</option>
+                                <option value="rifle">Rifles</option>
+                                <option value="shotgun">Shotguns</option>
+                                <option value="melee">Melee</option>
+                            </select>
+                        </div>
+
+                        <div class="card">
+                            <label>Weapon</label>
+                            <select id="weaponSelect"></select>
+                        </div>
+
+                        <div class="card">
+                            <label>
+                                <input type="checkbox" id="infiniteAmmo" />
+                                Infinite Ammo
+                            </label>
+                        </div>
+
+                        <div class="card">
+                            <label>Accuracy</label>
+                            <input id="accuracy" type="range" min="0" max="100" value="35" />
+                        </div>
+
+                        <div class="card">
+                            <label>Aggression</label>
+                            <input id="aggression" type="range" min="0" max="100" value="50" />
+                        </div>
+
+                        <div class="card">
+                            <label>
+                                <input type="checkbox" id="useCover" checked />
+                                Use Cover
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- ADVANCED TAB -->
+                <div class="tab" id="tab-advanced">
+                    <h2>Advanced</h2>
+                    <p>Godmode, collision, persistence (next file)</p>
+                </div>
+
+            </section>
+        </main>
+    </div>
+
+    <!-- Script -->
+    <script src="app.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <div id="app" style="display:none;">
+        <div class="header">
+            <h3>NPC Manager</h3>
+            <button id="close-btn">X</button>
+        </div>
+
+        <div class="controls">
+            <input type="text" id="model-input" placeholder="e.g. g_m_y_ballas_01">
+            <button id="spawn-btn">Spawn NPC</button>
+        </div>
+
+        <div class="list-container">
+            <div class="npc-item original-char">
+                <span>My Original Character</span>
+                <button onclick="playChar(0)">Play</button>
+            </div>
+            <div id="npc-list">
+                </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
